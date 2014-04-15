@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="template">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" media="all"
+	href="/css/bootstrap.css" />
+
+<title>Bonus</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<form method="post" action="gravaregra">
+		<div class="form-group">
+			<label for="representante">
+				Selecione a função...
+			</label>
+			<select name="nmfuncao" id="funcaobonus">
+			<option value="">Selecione</option>
+				<option th:each="funcao : ${funcoes}" th:text="${funcao.nmfuncao}"
+				th:value="${funcao.idfuncao}"
+				></option>
+			</select>
+			<input type="submit" class="btn btn-primary" value="Gravar"/>	
+		</div>
+		
+		<div id="grupos"></div>
+		
+		</form>
+		<script type="text/javascript">
+function aplicaBonus(){
+
+	var elemento = document.getElementsByName('bonus');
+	var cont = 0;
+	if(elemento.lenght>0){
+		var total = Integer.parseInt(elemento.length);
+		alert(total);	
+		
+	}
+	
+}		
+</script>
+		</div>
+		
+	
+</body>
+</html>

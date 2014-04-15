@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	>
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" media="all"
+ href="css/bootstrap.css" />
+<title>Criar Senha de Acesso</title>
+</head>
+<body>
+		<div class="container" style="width: 60%">
+			<p>Para Criar uma senha é necessário verificar se o usuário existe no ERP</p>
+			<br/>
+			Digite seu login no ERP
+			<br/>
+			<form action="criasenha" method="post">
+				<input type="text" class="form-control" placeholder="login ERP" name="nome"
+				th:value="${login}"/>
+				
+			
+				<div th:if="${login}">
+				<input type='password' class='form-control' placeholder='Senha WEB' name='senha'/>
+					
+				</div>
+			<input type="submit" th:value="${textoBotao}" class="btn btn-primary" />
+				<span th:text="${resultado}"></span>
+			</form>
+		</div>
+</body>
+</html>

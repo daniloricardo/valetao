@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="template">
+<head>
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" media="all"
+ href="css/bootstrap.css" />
+ 
+<title>atimaky</title>
+<style type="text/css">
+.direita{
+	text-align: right;
+}
+#tabela{
+	font-size: 9pt;
+}
+</style>
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<br/>
+		<table class="table table-bordered" id="tabela">
+			<thead>
+				<tr>
+					<td>Nr.Contato</td>
+					<td>Descricao Contato</td>
+					<td>Usuario</td>
+					<td>Cliente</td>
+					<td>Dt.Emissão</td>
+					<td>Valor</td>
+					<td>Ações</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="contato : ${contatos}">
+					<td th:text="${contato.cdchamada}" />
+					<td th:text="${contato.dscontato}" />
+					<td th:text="${contato.usuario}" />
+					<td th:text="${contato.cliente}" />
+					<td th:text="${contato.dataemissao}" />
+					<td th:class="direita"
+						th:text="${#numbers.formatDecimal(contato.vlaproximado,1,2)}" />
+					<td><a th:href="'/imprime/'+${contato.cdchamada}" target="blank">Imprimir</a></td>	
+				</tr>
+			</tbody>
+		</table>
+		<ul class="pagination">
+						<li th:class="${pagina == 1} ? 'disabled' : ''"><a
+							th:href="${pagina == 1} ? '#' : ${paginaAnterior} ">&laquo;</a></li>
+						<li th:each="numero : ${numeros}"
+							th:class="${numero == pagina.toString()} ? 'active' : ''">
+							<a
+							th:href="${numero}">
+								<spam th:text="${numero}">1</spam>
+						</a>
+						
+						</li>
+						<li><a
+							th:href=" ${pagina == qtd} ? '#' : ${paginaPosterior} " 
+							class="${numeros == paginaPosterior}? 'disabled' : ''">&raquo;</a></li>
+
+					</ul>
+	</div>
+</body>
+</html>

@@ -1,0 +1,19 @@
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <input type="text" class="form-control col md-1" placeholder="Percentual Geral" id="percentualgeral"
+onchange="aplicapercentual(this.value)"/>
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<td>Grupo</td>
+			<td>Comissão</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each="grupo : ${grupos}">
+			<td th:text="${grupo.nmgrupoproduto}"/>
+			<input type="hidden" th:value="${grupo.idgrupoproduto}" name="arraycomissao"/>
+			<td><input type="text" class="form-control" name="comissao" /></td>
+		</tr>
+	</tbody>
+</table>
+<input type="submit" class="btn btn-primary" value="Gravar"/>	

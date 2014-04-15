@@ -1,0 +1,17 @@
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<table class="table table-bordered">
+		<thead>
+			<tr>
+				<td>Nr.Pedido</td>
+				<td>Cliente</td>
+				<td>Operação</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="pedido : ${lista}">
+				<td th:text="${pedido.cdchamadapedido}"/>
+				<td th:text="${pedido.nmcliente}"/>
+				<td th:text="${pedido.nmoperacao}"/>
+			</tr>
+		</tbody>
+	</table>

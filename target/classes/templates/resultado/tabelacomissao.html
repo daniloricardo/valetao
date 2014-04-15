@@ -1,0 +1,39 @@
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<table class="table table-bordered" id="tabela" style="width: 100%">
+	<thead>
+		<tr>
+			<td>Nr.Documento</td>
+			<td>Dt.Emissão</td>
+			<td>Empresa</td>
+			<td>Cliente</td>
+			<td>Produto</td>
+			<td>Grupo</td>
+			<td>Qt.Item</td>
+			<td>Vl.Item</td>
+			<td>Aliquota</td>
+			<td>Comissão</td>
+			
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each="tabela : ${tabela}">
+			<td th:text="${tabela.nrdocumento}"/>
+			<td th:text="${tabela.dtemissao}"/>
+			<td th:text="${tabela.cdempresa}"/>
+			<td th:text="${tabela.nmpessoa}"/>
+			<td th:text="${tabela.nmproduto}"/>
+			<td th:text="${tabela.nmgrupo}"/>
+			<td th:text="${tabela.qtitem}" class="direita" />
+			<td th:text="${tabela.vlitem}" class="direita" />
+			<td th:text="${tabela.percentual}" class="direita" />
+			<td th:text="${#numbers.formatDecimal(tabela.vlcomissao,1,2)}" class="direita" />
+		</tr>
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="9" class="direita">Total comissão</td>
+			<td  th:text="${#numbers.formatDecimal(total,1,2)}" class="direita"/>
+		</tr>
+	</tfoot>
+</table>
+	

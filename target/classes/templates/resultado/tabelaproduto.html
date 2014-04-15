@@ -1,0 +1,28 @@
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<input type="text" class="form-control col md-1" placeholder="Bônus Geral" id="bonusgeral"
+onchange="aplica(this.value)"/>
+<table class="table table-bordered" id="tabela" style="width: 100%">
+	<thead>
+		<tr>
+			<td>Codigo</td>
+			<td>Nome</td>
+			<td>% Bonus</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each="produto : ${produtos}">
+			<td th:text="${produto.cdchamada}"/>
+			<td th:text="${produto.nmproduto}"/>
+			<td>
+				<input type="text" class="form-control" id="bonus" name="bonus"
+				 />
+			</td>
+		</tr>
+	</tbody>
+	
+</table>
+<script type="text/javascript">
+	
+		
+</script>
+	

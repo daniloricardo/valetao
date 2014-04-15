@@ -1,0 +1,39 @@
+
+#body{
+	font-family: calibri;
+	background-color: gray;
+}
+#fonte{
+	font-size: 9pt;
+}
+.direita{
+	
+	text-align: right;
+}
+#autocompleterepresentante{
+	position: fixed;
+	z-index: 99;
+	background-color: #eee;
+}
+#resultadofiltrorepfunc{
+	position: relative;
+	z-index: 1;
+}
+#tabela{
+	font-size: 8pt;
+}
+.dados{
+	padding: 5px;
+	width: 100%;
+}
+.dados:hover{
+	background: #428bca;
+	color: white;
+	width: 100%;
+}
+.datepicker {
+    z-index:1051 !important;
+}
+#loading {
+    z-index: 9999;
+}

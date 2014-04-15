@@ -1,0 +1,47 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<form method="post" action="processa" name="form" role="form">
+<div class="form-inline" style="width: 100%">
+	<input type="text" th:value="${pessoa.nmpessoa}" disabled="disabled" class="form-control"
+	style="width:62%" id="selecionado"/>
+	<input type="hidden" th:value="${pessoa.idpessoa}" id="idpessoa" />
+	<input type="hidden" value="" id="tipolancamento" />
+	<input type="text" class="form-control input-date" id="data" name="data" placeholder="Data Final"/>
+	<input type="button" class="btn btn-primary" value="Crédito" 
+	 data-toggle="modal"
+			id="credito" data-target="#myModal" />
+	<input type="button" class="btn btn-primary" value="Débito" id="debito"
+	 data-toggle="modal" data-target="#myModal"/>
+	<input type="button" class="btn btn-primary" value="processar" onclick="processa()"/>
+</div>
+
+</form>
+	<script src="/js/bootstrap-datepicker.js"></script>
+		
+		<script type="text/javascript">
+		
+		  $('.input-date').datepicker({
+	    	language: "pt-BR",
+	    	format: "dd/mm/yyyy",
+	    	autoclose: true,
+	    	todayHighlight: true
+	    });
+		
+		  $("#debito").click(function(){
+				tituloModal = 'Debitar (-)';
+				$("#tipolancamento").val('D');
+				$("#descFiltro").text(tituloModal);
+				$("#nmvendedor").val(
+						$("#selecionado").val()	
+						);
+			 });
+		  $("#credito").click(function(){
+				tituloModal = 'Creditar (+)';
+				$("#tipolancamento").val('C');
+				$("#descFiltro").text(tituloModal);
+				$("#nmvendedor").val(
+						$("#selecionado").val()	
+						);
+				
+			 });
+		
+	    </script>	

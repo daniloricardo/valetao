@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	
+<head>
+<link rel="stylesheet" type="text/css" media="all"
+ href="css/bootstrap.css" />
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ <title>Relatorios Custo</title>
+</head>
+<body>
+	
+	<div class="container" style="width: 60%">
+	
+	<br/>
+	<br/>
+	<h3>Login</h3>
+		  <form th:action="@{/login}" method="post">
+			<input type="text" class="form-control" placeholder="Login" name="username" />
+			<input type="password" class="form-control" placeholder="Senha" name="password" />
+			<input class="btn btn-primary" type="submit" value="Entrar"/>
+			
+			<div th:if="${param.error}">
+            Usuário ou Senha Inválidos.
+        </div>
+        <div th:if="${param.logout}">
+            Você efetuou o Log-of.
+        </div>
+        <a href="criasenha">criar senha</a>
+		</form>
+	</div>	
+		
+	
+</body>
+</html>

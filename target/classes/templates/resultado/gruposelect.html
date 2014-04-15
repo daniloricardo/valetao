@@ -1,0 +1,37 @@
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<fieldset>
+		<legend>Grupo</legend>
+	
+			
+		<div class="form-inline">
+			<select id="gruposelect">
+				<option>Selecione o Grupo...</option>
+				<option th:each="grupo : ${grupos}"
+				th:value="${grupo.idgrupoproduto}"
+			 	th:text="${grupo.nmgrupoproduto}"/>
+			</select>
+			
+		</div>
+	</fieldset>
+	<div id="produtos"></div>
+<input type="submit" class="btn btn-primary" value="Gravar"/>	
+<script type="text/javascript">
+
+$("#bonusgeral").change(function(){
+	aplicaBonus();
+});
+	
+$("#gruposelect").change(function(){
+		
+	 $("#loading").show();
+	  $.ajax(
+			  {url:"produtos?id="+this.value,success:function(result)
+				  {
+				  $("#loading").hide();
+				  	$("#produtos").html(result);
+				  		
+				  }});
+	 
+});
+</script>
