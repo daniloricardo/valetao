@@ -6,7 +6,9 @@ import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletResponse;
 
+import nelsys.modelo.Funcao;
 import nelsys.modelo.Pessoa;
+import nelsys.repository.FuncaoRepository;
 import nelsys.repository.GrupoRepository;
 import nelsys.repository.PessoaRepository;
 import nelsys.repository.ProdutoRepository;
@@ -25,6 +27,8 @@ public class AutoCompleteController {
 	GrupoRepository grupoRepository;
 	@Autowired
 	ProdutoRepository produtoRepository;
+	@Autowired
+	FuncaoRepository funcaoRepository;
 	
 	@RequestMapping("consultarepresentante")
 	public void autocompleterepresentante(String nome,HttpServletResponse response) throws IOException{
@@ -37,10 +41,20 @@ public class AutoCompleteController {
 		}
 	}
 	@RequestMapping("resultadofiltrorepresentante")
-	public String teste(String nome,ModelMap map){
+	public String teste(String nome,ModelMap map) throws SQLException{
 		System.out.println(nome);
-		Pessoa p = pessoaRepository.findById(nome);
+		Pessoa p = null;
+		p = pessoaRepository.findById(nome);
+		p.setNmpessoa(p.getNmpessoa());
+		String idfuncao =pessoaRepository.idfuncaoporidpessoa(p.getIdpessoa());
+		
+		Funcao f = funcaoRepository.findById(idfuncao);
+		if(f != null){
+		map.put("funcao", f);
+		}
+		
 		map.put("pessoa", p);
+		
 		return "resultado/representantefuncionario";
 		
 	}

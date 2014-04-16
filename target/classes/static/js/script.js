@@ -194,9 +194,11 @@ function processa(){
 function aplica(x){
 	
 	var produtos = document.getElementsByName('bonus');
+	var bonusprodutos = document.getElementsByName('bonus_produto');
 	var tamanho = produtos.length;
 	for(var i=0;i < tamanho;i++){
 		produtos[i].value = x;
+		bonusprodutos[i].value = x+'_'+bonusprodutos[i].value; 
 	}
 	
 }
@@ -208,4 +210,11 @@ function aplicapercentual(x){
 		produtos[i].value = x;
 	}
 	
+}
+function convertehidden(x){
+	
+	
+	var array = x.split('_'); 
+	
+	$('#_'+array[1]).val(x);
 }

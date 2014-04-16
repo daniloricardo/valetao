@@ -1,3 +1,4 @@
+F:\Nelsys\Projetos2014\valetao\src\main\java\nelsys\repository\BonusProdutoRepository.java
 F:\Nelsys\Projetos2014\valetao\src\main\java\nelsys\controller\AutoCompleteController.java
 F:\Nelsys\Projetos2014\valetao\src\main\java\nelsys\modelo\Funcionario.java
 F:\Nelsys\Projetos2014\valetao\src\main\java\nelsys\SecurityConfig.java
@@ -8,8 +9,9 @@ F:\Nelsys\Projetos2014\valetao\src\main\java\nelsys\repository\TabelaComissaoRep
 F:\Nelsys\Projetos2014\valetao\src\main\java\nelsys\modelo\EmpresaERP.java
 F:\Nelsys\Projetos2014\valetao\src\main\java\nelsys\modelo\Produto.java
 F:\Nelsys\Projetos2014\valetao\src\main\java\nelsys\modelo\TabelaComissao.java
-F:\Nelsys\Projetos2014\valetao\src\main\java\nelsys\repository\ProdutoRepository.java
+F:\Nelsys\Projetos2014\valetao\src\main\java\nelsys\modelo\BonusProduto.java
 F:\Nelsys\Projetos2014\valetao\src\main\java\nelsys\repository\GrupoRepository.java
+F:\Nelsys\Projetos2014\valetao\src\main\java\nelsys\repository\ProdutoRepository.java
 F:\Nelsys\Projetos2014\valetao\src\main\java\nelsys\controller\ProcessaController.java
 F:\Nelsys\Projetos2014\valetao\src\main\java\nelsys\modelo\Representante.java
 F:\Nelsys\Projetos2014\valetao\src\main\java\nelsys\repository\PessoaRepository.java

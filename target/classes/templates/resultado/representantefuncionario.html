@@ -1,8 +1,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <form method="post" action="processa" name="form" role="form">
 <div class="form-inline" style="width: 100%">
-	<input type="text" th:value="${pessoa.nmpessoa}" disabled="disabled" class="form-control"
-	style="width:62%" id="selecionado"/>
+	<input type="text" th:value="${pessoa.nmpessoa} " disabled="disabled" class="form-control"
+	style="width:31%" id="selecionado"/>
+	<input type="text" th:value="${funcao != null} ? ${funcao.nmfuncao} : '' " disabled="disabled" class="form-control"
+	style="width:31%" id="selecionado"/>
 	<input type="hidden" th:value="${pessoa.idpessoa}" id="idpessoa" />
 	<input type="hidden" value="" id="tipolancamento" />
 	<input type="text" class="form-control input-date" id="data" name="data" placeholder="Data Final"/>

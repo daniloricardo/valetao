@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
+import nelsys.modelo.BonusProduto;
 import nelsys.modelo.Regra;
 import nelsys.modelo.TabelaComissao;
+import nelsys.repository.BonusProdutoRepository;
 import nelsys.repository.EmpresaRepository;
 import nelsys.repository.FuncaoRepository;
 import nelsys.repository.GrupoRepository;
@@ -42,6 +44,8 @@ public class HomeController {
 	EmpresaRepository empresaRepository;
 	@Autowired
 	TabelaComissaoRepository tabelaComissaoRepository;
+	@Autowired
+	BonusProdutoRepository bonusProdutoRepository;
 	
 	@RequestMapping("/")
 	public String index(ModelMap map){
@@ -156,6 +160,36 @@ public class HomeController {
 	@RequestMapping("bonus")
 	public String bonus(ModelMap map){
 		map.put("funcoes", funcaoRepository.lista());
+		return "bonus";
+	}
+	@RequestMapping("aplicabonus")
+	public String aplicabonus(ModelMap map, HttpServletResponse response,HttpServletRequest request) throws SQLException{
+		map.put("funcoes", funcaoRepository.lista());
+		String idfuncao = request.getParameter("nmfuncao");
+		System.out.println("idfuncao: "+idfuncao);
+		String idgrupo = request.getParameter("grupo");
+		System.out.println("idgrupo: "+idgrupo);
+		String[] bonus = request.getParameterValues("bonus_produto");
+		System.out.println("tamanho: "+bonus.length);
+		BonusProduto b;
+		List<BonusProduto> lista = new ArrayList<BonusProduto>();
+		//cria a lista
+		for(String s : bonus){
+			
+			if(s.length()>11){
+				System.out.println(s);
+				String[] partes = s.split("_");
+				Double vlbonus = Double.parseDouble(partes[0].replace(",","."));
+				String idproduto = partes[1];
+				b = new BonusProduto();
+				b.setIdfuncao(idfuncao);
+				b.setIdgrupo(idgrupo);
+				b.setIdproduto(idproduto);
+				b.setVlbonus(vlbonus);
+				lista.add(b);
+			}
+		}
+		bonusProdutoRepository.insertorupdate(lista);
 		return "bonus";
 	}
 }

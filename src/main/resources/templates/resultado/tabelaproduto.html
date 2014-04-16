@@ -14,8 +14,11 @@ onchange="aplica(this.value)"/>
 			<td th:text="${produto.cdchamada}"/>
 			<td th:text="${produto.nmproduto}"/>
 			<td>
-				<input type="text" class="form-control" id="bonus" name="bonus"
+			
+				<input type="text" class="form-control" th:id="${produto.idproduto}" name="bonus"
+				onchange="convertehidden(this.value+'_'+this.id)"
 				 />
+				 <input type="hidden" th:id="'_'+${produto.idproduto}" name="bonus_produto" th:value="${produto.idproduto}" />
 			</td>
 		</tr>
 	</tbody>

@@ -71,7 +71,11 @@ public class TabelaComissaoRepository {
 				" , GP.IdGrupoProduto "+
 				" , GP.NmGrupoProduto "+
 				" , RC.Percentual "+
-				" , RC.VlAdicional "+
+				" , isnull(( select BP.vlbonus  from Nsys_bonusproduto BP "+ 
+				" where BP.idfuncao = ( select top 1 idfuncao from Funcao where NmFuncao = RC.NmCampo) "+
+				" and BP.idgrupo = GP.IdGrupoProduto "+
+				" and BP.idproduto = Prod.IdProduto),0) "+
+				"  as VlAdicional "+
 				" , RC.VlBonificacao "+
 				" , 'N' as stliberado "+
 				" , null as idfechamento "+
@@ -94,6 +98,7 @@ public class TabelaComissaoRepository {
 				" , D.DtEmissao "+
 				" , LE.CdEmpresa "+
 				" , Cli.NmPessoa "+
+				" , Prod.IdProduto "+
 				" , Prod.NmProduto "+
 				" , DI.QtItem "+
 				" , DI.VlItem "+
@@ -151,6 +156,7 @@ public class TabelaComissaoRepository {
 			tabelaComissao.setVendedor(rs.getString("vendedor"));
 			tabelaComissao.setIdgrupo(rs.getString("idgrupoproduto"));
 			tabelaComissao.setPercentual(rs.getDouble("percentual"));
+			tabelaComissao.setVladicional(rs.getDouble("VlAdicional"));
 			lista.add(tabelaComissao);
 		}
 		return lista;

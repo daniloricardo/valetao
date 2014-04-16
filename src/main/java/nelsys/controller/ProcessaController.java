@@ -35,7 +35,7 @@ public class ProcessaController {
 		map.put("tabela",tabelaComissaoRepository.listaporvendedor(idpessoa, converte(data),nmfuncao));
 		Double totalComissao = new Double(0);
 		for(TabelaComissao t : tabelaComissaoRepository.listaporvendedor(idpessoa, converte(data),nmfuncao) ){
-			totalComissao += t.getVlcomissao();
+			totalComissao += (t.getVlcomissao()+t.getVladicional());
 		}
 		map.put("total", totalComissao);
 		return "resultado/tabelacomissao";
