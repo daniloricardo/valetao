@@ -29,7 +29,7 @@
 			<td th:text="${tabela.vlitem}" class="direita" />
 			<td th:text="${tabela.percentual}" class="direita" />
 			<td th:text="${tabela.vladicional}" class="direita" />
-			<td th:text="${#numbers.formatDecimal(tabela.vlcomissao,1,2)}" class="direita" />
+			<td th:text="${#numbers.formatDecimal(tabela.vlcomissao+tabela.vladicional,1,2)}" class="direita" />
 		</tr>
 	</tbody>
 	<tfoot>

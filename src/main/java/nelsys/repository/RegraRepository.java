@@ -46,4 +46,31 @@ public class RegraRepository {
 			}
 		}
 	}
+	public Double percentualPorGrupoFuncao(String nmfuncao,String idgrupo) throws SQLException{
+		String query = "select percentual from Nsys_RegraComissao "+
+				" where nmcampo = ? and idgrupoproduto = ? ";
+		PreparedStatement pp = dataSource.getConnection().prepareStatement(query);
+		pp.setString(1, nmfuncao);
+		pp.setString(2, idgrupo);
+		ResultSet rs = pp.executeQuery();
+		Double percentual = new Double(0);
+		while(rs.next()){
+			percentual = rs.getDouble("percentual");
+		}
+		return percentual;
+	}
+	public Double percentualPorGrupoFuncaoProduto(String idfuncao,String idgrupo,String idproduto) throws SQLException{
+		String query = "select vlbonus from Nsys_bonusproduto "+
+				" where idfuncao = ? and idgrupo = ? and idproduto = ? ";
+		PreparedStatement pp = dataSource.getConnection().prepareStatement(query);
+		pp.setString(1, idfuncao);
+		pp.setString(2, idgrupo);
+		pp.setString(3, idproduto);
+		ResultSet rs = pp.executeQuery();
+		Double vlbonus = new Double(0);
+		while(rs.next()){
+			vlbonus = rs.getDouble("vlbonus");
+		}
+		return vlbonus;
+	}
 }

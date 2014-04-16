@@ -23,10 +23,12 @@ $("#bonusgeral").change(function(){
 });
 	
 $("#gruposelect").change(function(){
-		
-	 $("#loading").show();
+	var idfuncao = $("#funcaobonus").val();
+	$("#loading").show();
 	  $.ajax(
-			  {url:"produtos?id="+this.value,success:function(result)
+			  {
+				data: {idfuncao : idfuncao},
+				  url:"produtos?id="+this.value,success:function(result)
 				  {
 				  $("#loading").hide();
 				  	$("#produtos").html(result);

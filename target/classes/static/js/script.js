@@ -16,34 +16,29 @@ $(document).ready(function(){
 	  
 	
 	 $("#funcao").change(function(){
-		
+		 var idfuncao = new String(this.value);
 		 $("#loading").show();
-		  $.ajax(
-				  {url:"grupo",success:function(result)
-					  {
+		  $.ajax({
+			  data: {idfuncao : idfuncao},
+				  url:"grupo?",success:function(result){
 					  $("#loading").hide();
 					  	$("#grupos").html(result);
 					  		
-					  }});
+				  }});
 		 
 	 });
-	 $("#gruposelect").change(function(){
-		 $("#loading").modal();
-		 $("#loading").show();
-		  $.ajax({url:"produtos?id="+this.value,success:function(result){
-			  $("#loading").hide();
-			 $("#produtos").html(result)
-		  }});
-	 });
 	 $("#funcaobonus").change(function(){
+		 
 		 $("#loading").show();
-		  $.ajax({url:"grupobonus",success:function(result){
+		  $.ajax({
+			  url:"grupobonus?",success:function(result){
 			  $("#loading").hide();
 			 $("#grupos").html(result);
 			
 			  }});
 		 
 	 });
+	
 	 $("#processa").click(function(){
 		  alert('teste');
 	 });	  
@@ -161,7 +156,24 @@ function validaPeriodo(){
 		bootbox.alert('A Data Final não foi informada. Verifique');
 		return false;
 	}
+	else {
+		return true;
+	}
 	
+}
+function confirmafechamento(){
+	if(validaPeriodo()){
+		bootbox.confirm('Confirma Efetuar o Fechamento?', function(result){
+			$.ajax({url:"fechamento",success:function(result){
+			
+		}});
+		alert('teste');	
+		}
+			
+
+);
+	}
+	return false;
 }
 
 function selecionarepfunc(x){

@@ -12,7 +12,8 @@ onchange="aplicapercentual(this.value)"/>
 		<tr th:each="grupo : ${grupos}">
 			<td th:text="${grupo.nmgrupoproduto}"/>
 			<input type="hidden" th:value="${grupo.idgrupoproduto}" name="arraycomissao"/>
-			<td><input type="text" class="form-control" name="comissao" /></td>
+			<td><input type="text" class="form-control" name="comissao"
+			th:value="${grupo.percentual}" /></td>
 		</tr>
 	</tbody>
 </table>

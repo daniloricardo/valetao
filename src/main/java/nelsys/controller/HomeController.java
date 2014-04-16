@@ -102,7 +102,7 @@ public class HomeController {
 		int tamanho = comissao.length;
 		List<String> comissaocomvalor = new ArrayList<String>();
 		for(int i=0;i<tamanho;i++){
-			if((comissao[i] != null) &&(comissao[i] != "")){
+			if((comissao[i] != null) &&(comissao[i] != "") && (comissao[i] != "0")){
 				comissaocomvalor.add(comissao[i]+"-"+i);
 			}
 		}
@@ -124,7 +124,7 @@ public class HomeController {
 			System.out.println("listaregra.size(): "+listaregra.size());
 			regraRepository.insere(listaregra);
 		}
-		return "home";
+		return "regra";
 	}
 	@RequestMapping("lancamento")
 	public void lancamento(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException{

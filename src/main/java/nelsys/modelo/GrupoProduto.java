@@ -3,6 +3,7 @@ package nelsys.modelo;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="grupoproduto")
@@ -13,6 +14,15 @@ public class GrupoProduto {
 	private String cdchamada;
 	private String nmgrupoproduto;
 	private String tpclassificacao;
+	@Transient
+	private Double percentual;
+	
+	public void setPercentual(Double percentual) {
+		this.percentual = percentual;
+	}
+	public Double getPercentual() {
+		return percentual;
+	}
 	public String getIdgrupoproduto() {
 		return idgrupoproduto;
 	}

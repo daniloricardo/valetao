@@ -65,7 +65,7 @@ public class TabelaComissaoRepository {
 				" , Cli.NmPessoa "+
 				" , Prod.NmProduto "+
 				" , DI.QtItem "+
-				" , DI.VlItem "+
+				"  , CASE WHEN O.TpOperacao = 'D' then  (-DI.VlItem) else DI.VlItem end   as VlItem  "+
 				" , (DI.VlItem * RC.Percentual/100) +isnull(( RC.VlAdicional + RC.VlBonificacao),0)as VlComissao "+
 				" , P.IdPessoa as Vendedor "+
 				" , GP.IdGrupoProduto "+
@@ -92,6 +92,7 @@ public class TabelaComissaoRepository {
 				" LEFT OUTER JOIN Pessoa  P ON (DIR.IdPessoa = P.IdPessoa) "+
 				" LEFT OUTER JOIN PessoaComplementar PC ON (P.IdPessoa = PC.IdPessoa) "+
 				" Where DIR.IdPessoa = ?  and D.DtEmissao <= ? and RC.NmCampo = 	? "+
+				"  and O.TpOperacao = 'V' and D.StDocumentoCancelado = 'N' "+
 				" group by "+
 				"  RC.NmCampo "+
 				" ,D.NrDocumento "+
@@ -111,6 +112,7 @@ public class TabelaComissaoRepository {
 				" , RC.Percentual "+
 				" , RC.VlAdicional "+
 				" , RC.VlBonificacao "+
+				" , O.TpOperacao "+
 				" UNION "+
 				"  select "+ 
 				" nrdocumento, "+

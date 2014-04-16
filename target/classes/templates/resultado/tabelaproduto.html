@@ -6,7 +6,7 @@ onchange="aplica(this.value)"/>
 		<tr>
 			<td>Codigo</td>
 			<td>Nome</td>
-			<td>% Bonus</td>
+			<td>Valor Bonus</td>
 		</tr>
 	</thead>
 	<tbody>
@@ -17,6 +17,7 @@ onchange="aplica(this.value)"/>
 			
 				<input type="text" class="form-control" th:id="${produto.idproduto}" name="bonus"
 				onchange="convertehidden(this.value+'_'+this.id)"
+				th:value="${produto.vlbonus}"
 				 />
 				 <input type="hidden" th:id="'_'+${produto.idproduto}" name="bonus_produto" th:value="${produto.idproduto}" />
 			</td>

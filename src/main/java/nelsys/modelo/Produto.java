@@ -6,6 +6,14 @@ public class Produto {
 	private String cdchamada;
 	private String nmproduto;
 	private String idgrupo;
+	private Double vlbonus;
+	
+	public void setVlbonus(Double vlbonus) {
+		this.vlbonus = vlbonus;
+	}
+	public Double getVlbonus() {
+		return vlbonus;
+	}
 	public String getIdproduto() {
 		return idproduto;
 	}

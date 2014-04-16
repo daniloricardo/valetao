@@ -3,15 +3,21 @@ package nelsys.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import nelsys.modelo.Funcao;
+import nelsys.modelo.GrupoProduto;
 import nelsys.modelo.Pessoa;
+import nelsys.modelo.Produto;
 import nelsys.repository.FuncaoRepository;
 import nelsys.repository.GrupoRepository;
 import nelsys.repository.PessoaRepository;
 import nelsys.repository.ProdutoRepository;
+import nelsys.repository.RegraRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +35,8 @@ public class AutoCompleteController {
 	ProdutoRepository produtoRepository;
 	@Autowired
 	FuncaoRepository funcaoRepository;
+	@Autowired
+	RegraRepository regraRepository;
 	
 	@RequestMapping("consultarepresentante")
 	public void autocompleterepresentante(String nome,HttpServletResponse response) throws IOException{
@@ -59,7 +67,14 @@ public class AutoCompleteController {
 		
 	}
 	@RequestMapping("grupo")
-	public String grupo(ModelMap map){
+	public String grupo(ModelMap map, HttpServletRequest request) throws SQLException{
+		String idfuncao = request.getParameter("idfuncao");
+		Funcao f = funcaoRepository.findById(idfuncao);
+		for(GrupoProduto g : grupoRepository.lista()){
+			g.setPercentual(
+				regraRepository.percentualPorGrupoFuncao(f.getNmfuncao(), g.getIdgrupoproduto())	
+					);
+		}
 		map.put("grupos", grupoRepository.lista());
 		return "resultado/grupos";
 	}
@@ -69,8 +84,17 @@ public class AutoCompleteController {
 		return "resultado/gruposelect";
 	}
 	@RequestMapping("produtos")
-	public String produtos(ModelMap map,String id) throws SQLException{
-		map.put("produtos", produtoRepository.listaporgrupo(id));
+	public String produtos(ModelMap map,String id,HttpServletRequest request) throws SQLException{
+		String idfuncao = request.getParameter("idfuncao");
+		System.out.println(idfuncao);
+		List<Produto> lista = new ArrayList<Produto>();
+		for(Produto p : produtoRepository.listaporgrupo(id)){
+			p.setVlbonus(
+				regraRepository.
+			percentualPorGrupoFuncaoProduto(idfuncao,id,p.getIdproduto()));
+			lista.add(p);
+		}
+		map.put("produtos", lista);
 		return "resultado/tabelaproduto";
 	}
 }
