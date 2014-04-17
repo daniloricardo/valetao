@@ -32,8 +32,11 @@ public class FechamentoController {
 	@ResponseBody
 	public String fechamento(HttpServletRequest request) throws SQLException{
 		String idpessoa =request.getParameter("idpessoa");
+		String dataoriginal = request.getParameter("data");
 		String data = converte(request.getParameter("data"));
 		String nmfuncao = "";
+		String nmvendedor = pessoaRepository
+				.findById(idpessoa).getNmpessoa();
 		try{
 		nmfuncao = funcaoRepository
 				.findById(pessoaRepository.idfuncaoporidpessoa(idpessoa)).getNmfuncao();
@@ -43,11 +46,12 @@ public class FechamentoController {
 		}
 		int tamanho = tabelaComissaoRepository.listaporvendedor(idpessoa, data,nmfuncao).size();
 		if(tamanho>0){
-		int idfechamento  = fechamentoRepository.fecha();
+		int idfechamento  = fechamentoRepository.fecha(nmvendedor,dataoriginal);
 		List<TabelaComissao> lista = new ArrayList<TabelaComissao>();
 		for(TabelaComissao t : tabelaComissaoRepository.listaporvendedor(idpessoa, data,nmfuncao)){
 			t.setIdfechamento(idfechamento+"");
 			t.setIdvendedor(idpessoa);
+			t.setVendedor(nmvendedor);
 			t.setDtemissao(converte(t.getDtemissao()));
 			lista.add(t);
 		}

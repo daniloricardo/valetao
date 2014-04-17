@@ -19,6 +19,21 @@ public class TabelaComissaoFechamento {
 	private int id;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date data;
+	private String datareferencia;
+	private String nmvendedor;
+	
+	public void setDatareferencia(String datareferencia) {
+		this.datareferencia = datareferencia;
+	}
+	public String getDatareferencia() {
+		return datareferencia;
+	}
+	public void setNmvendedor(String nmvendedor) {
+		this.nmvendedor = nmvendedor;
+	}
+	public String getNmvendedor() {
+		return nmvendedor;
+	}
 	public int getId() {
 		return id;
 	}

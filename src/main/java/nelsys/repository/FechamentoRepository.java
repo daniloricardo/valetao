@@ -24,11 +24,13 @@ public class FechamentoRepository {
 	@Autowired
 	DataSource dataSource;
 	
-	public int fecha() throws SQLException{
+	public int fecha(String vendedor,String database) throws SQLException{
 		executaCreate();
 		Date data = new Date();
 		TabelaComissaoFechamento fech = new TabelaComissaoFechamento();
 		fech.setData(data);
+		fech.setDatareferencia(database);
+		fech.setNmvendedor(vendedor);
 		entityManager.getTransaction().begin();
 		entityManager.persist(fech);
 		entityManager.getTransaction().commit();
@@ -83,7 +85,7 @@ public class FechamentoRepository {
 	}
 	public List<TabelaComissao> listaFechados(String id) throws SQLException{
 		executaCreate();
-		String query = "select * from nsys_tabelacomissao where idfechamento = ?";
+		String query = "select convert(varchar,dtmovimento,103) as data, * from nsys_tabelacomissao where idfechamento = ?";
 		PreparedStatement pp = dataSource.getConnection().prepareStatement(query);
 		pp.setString(1, id);
 		ResultSet rs = pp.executeQuery();
@@ -92,7 +94,7 @@ public class FechamentoRepository {
 		while(rs.next()){
 			tabelaComissao = new TabelaComissao();
 			tabelaComissao.setNrdocumento(rs.getString("nrdocumento"));
-			tabelaComissao.setDtemissao(rs.getString("dtmovimento"));
+			tabelaComissao.setDtemissao(rs.getString("data"));
 			tabelaComissao.setCdempresa(rs.getString("empresa"));
 			tabelaComissao.setNmpessoa(rs.getString("cliente"));
 			tabelaComissao.setNmproduto(rs.getString("produto"));
@@ -116,7 +118,7 @@ public class FechamentoRepository {
 	" create table nsys_tabelacomissaofechamento "+
 	"( "+
 		" id integer primary key identity, "+
-	" data datetime "+
+	" data datetime,datareferencia nvarchar(20),nmvendedor nvarchar(255) "+
 	" ) end";
 	
 	PreparedStatement pp = dataSource.getConnection()
@@ -133,5 +135,10 @@ public class FechamentoRepository {
 	pp.setString(2, id);
 	pp.execute();
 	}
-	
+	public static String converte(String data){
+		return data.substring(6,10)+"-"+data.substring(3,5)+"-"+data.substring(0,2);
+	}
+	public TabelaComissaoFechamento getFechamento(String id){
+		return entityManager.find(TabelaComissaoFechamento.class, new Integer(id));
+	}
 }

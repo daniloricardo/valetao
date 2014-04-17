@@ -184,18 +184,30 @@ function confirmafechamento(){
 				representante.val()+', data Final: '+data.val()+' ?'
 				, function(result){
 			if(result){
+				$("#loading").show();
 			$.ajax({
 				data: {idpessoa : idpessoa, data : data.val() },
 				url:"fechamento",success:function(result){
+					$("#loading").hide();
 					alert(result);
+					limpadadoshome();
+					
 			}});
 			}
 		}
 			
 
 );
+		
 	}
 	
+}
+function limpadadoshome(){
+	$("#resultadofiltrorepfunc").html('');
+	$("#resultadotabela").html('');
+	$("#selecionado").text('');
+	$("#funcao").text('');
+	$("#data").text('');
 }
 function confirmaReabertura(x){
 	bootbox.confirm('Confirma Efetuar Reabertura do Fechamento selecionado?', function(result){

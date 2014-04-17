@@ -4,9 +4,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" type="text/css" media="all"
 	href="/css/bootstrap.css" />
+	<link rel="stylesheet" href="/css/estiloimpressao.css"/>
+	<link rel="stylesheet" href="/css/style.css"/>
 	</head>
-<table class="table table-bordered" id="tabela" style="width: 100%">
+<table class="table table-bordered table-striped" id="tabela" style="width: 100%">
 	<thead>
+		<tr>
+			<td th:text="${tabela.get(0).vendedor} +' 
+			- Nr.Fechamento: '+ ${fechamento.id} +'
+			-  Data Referencia: '+${fechamento.datareferencia} +'
+			-  Data/Hora Fechamento: '+${#dates.format(fechamento.data,'dd/MM/yyyy HH:mm')} " colspan="11"><b></b></td>
+		</tr>
 		<tr>
 			<td>Nr.Documento</td>
 			<td>Dt.Emissão</td>
@@ -41,7 +49,7 @@
 	<tfoot>
 		<tr>
 			<td colspan="10" class="direita">Total comissão</td>
-
+			<td th:text="${#numbers.formatDecimal(total,1,2)}" class="direita">Total comissão</td>
 		</tr>
 	</tfoot>
 </table>

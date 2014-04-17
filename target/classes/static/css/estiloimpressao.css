@@ -1,0 +1,10 @@
+@CHARSET "ISO-8859-1";
+
+* {
+	font-size: 8pt;
+	padding: 10px; 
+}
+.table {
+	
+	padding: 0px !important;
+}

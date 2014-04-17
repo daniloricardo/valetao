@@ -2,6 +2,8 @@ package nelsys.controller;
 
 import java.sql.SQLException;
 
+import nelsys.modelo.TabelaComissao;
+import nelsys.modelo.TabelaComissaoFechamento;
 import nelsys.repository.FechamentoRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +26,14 @@ public class FechamentosController {
 	@RequestMapping("imprime/{id}")
 	public String imprime(ModelMap map,@PathVariable String id) throws SQLException{
 		System.out.println(id);
+		TabelaComissaoFechamento fechcomissao = fechamentoRepository.getFechamento(id);
+		double totalcomissao = new Double(0);
 		map.put("tabela", fechamentoRepository.listaFechados(id));
+		map.put("fechamento", fechcomissao);
+		for(TabelaComissao t : fechamentoRepository.listaFechados(id)){
+			totalcomissao += t.getVlcomissao();
+		}
+		map.put("total", totalcomissao);
 		return "imprime";
 	}
 	@RequestMapping("reabre/{id}")
