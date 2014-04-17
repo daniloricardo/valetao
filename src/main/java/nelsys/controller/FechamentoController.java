@@ -41,6 +41,8 @@ public class FechamentoController {
 		catch(Exception e){
 			return "O Vendedor deve ter uma Função. Verifique!";
 		}
+		int tamanho = tabelaComissaoRepository.listaporvendedor(idpessoa, data,nmfuncao).size();
+		if(tamanho>0){
 		int idfechamento  = fechamentoRepository.fecha();
 		List<TabelaComissao> lista = new ArrayList<TabelaComissao>();
 		for(TabelaComissao t : tabelaComissaoRepository.listaporvendedor(idpessoa, data,nmfuncao)){
@@ -49,9 +51,9 @@ public class FechamentoController {
 			t.setDtemissao(converte(t.getDtemissao()));
 			lista.add(t);
 		}
-		if(lista.size()>0){
 			fechamentoRepository.executa(lista);
 			return "Fechamento Realizado com Sucesso!";
+			
 		}
 		else{
 			return "Não foram encontrados lançamentos com os parametros informados!";

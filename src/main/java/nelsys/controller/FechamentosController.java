@@ -27,4 +27,11 @@ public class FechamentosController {
 		map.put("tabela", fechamentoRepository.listaFechados(id));
 		return "imprime";
 	}
+	@RequestMapping("reabre/{id}")
+	public String reabre(ModelMap map,@PathVariable String id) throws SQLException{
+		System.out.println(id);
+		fechamentoRepository.deletafechamento(id);
+		map.put("tabela", fechamentoRepository.listaFechados(id));
+		return "redirect:/fechamentos";
+	}
 }

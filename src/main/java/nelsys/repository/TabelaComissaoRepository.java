@@ -128,7 +128,7 @@ public class TabelaComissaoRepository {
 				" Where DIR.IdPessoa = ?  and D.DtEmissao <= ? and RC.NmCampo = 	? "+
 				"  and O.TpOperacao = 'V' and D.StDocumentoCancelado = 'N' "+
 				" and D.NrDocumento not in "+
-				" ( select NrDocumento from nsys_tabelacomissao where idvendedor = ? and DtEmissao <= ?) "+
+				" ( select isnull(NrDocumento,0) from nsys_tabelacomissao where idvendedor = ? and DtEmissao <= ?) "+
 				" group by "+
 				"  RC.NmCampo "+
 				" ,D.NrDocumento "+

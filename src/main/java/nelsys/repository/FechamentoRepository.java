@@ -82,6 +82,7 @@ public class FechamentoRepository {
 		return entityManager.createQuery("from TabelaComissaoFechamento t order by t.id desc").getResultList();
 	}
 	public List<TabelaComissao> listaFechados(String id) throws SQLException{
+		executaCreate();
 		String query = "select * from nsys_tabelacomissao where idfechamento = ?";
 		PreparedStatement pp = dataSource.getConnection().prepareStatement(query);
 		pp.setString(1, id);
@@ -120,6 +121,16 @@ public class FechamentoRepository {
 	
 	PreparedStatement pp = dataSource.getConnection()
 			.prepareStatement(query);
+	pp.execute();
+	}
+	public void deletafechamento(String id) throws SQLException{
+		String query = ""+
+	"  delete from nsys_tabelacomissaofechamento where id = ?   "+ 
+	" delete from nsys_tabelacomissao where idfechamento = ? ";
+	PreparedStatement pp = dataSource.getConnection()
+			.prepareStatement(query);
+	pp.setString(1, id);
+	pp.setString(2, id);
 	pp.execute();
 	}
 	

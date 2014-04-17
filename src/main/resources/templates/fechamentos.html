@@ -22,6 +22,7 @@
 			<tr th:each="fechamento : ${fechamentos}">
 				<td th:text="${fechamento.id}" />
 				<td th:text="${#dates.format(fechamento.data,'dd/MM/yyyy HH:mm')}" />
+				<td><a href="#" onclick="confirmaReabertura(this.id)" th:id="${fechamento.id}">Reabrir</a></td>
 				<td><a th:href="'/imprime/'+${fechamento.id}" target="blank"><img src="/img/imprimir.gif"/></a></td>
 			</tr>
 		</table>

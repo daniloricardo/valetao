@@ -163,8 +163,20 @@ function validaPeriodo(){
 	}
 	
 }
+function validaFuncao(){
+	var funcao = document.getElementById('funcao').value;
+	if(funcao == '')
+	{
+		bootbox.alert('O Representante/Funcionário deve ter uma Função Vinculada. Verifique!');
+		return false;
+	}
+	else {
+		return true;
+	}
+	
+}
 function confirmafechamento(){
-	if(validaPeriodo()){
+	if(validaPeriodo() && validaFuncao()){
 		var representante = $("#selecionado");
 		var data = $("#data");
 		var idpessoa = new String($("#idpessoa").val());
@@ -185,7 +197,14 @@ function confirmafechamento(){
 	}
 	
 }
-
+function confirmaReabertura(x){
+	bootbox.confirm('Confirma Efetuar Reabertura do Fechamento selecionado?', function(result){
+	if(result){
+		document.location = '/reabre/'+x;
+	}
+	});
+	return false;
+	}
 function selecionarepfunc(x){
 	$.ajax({url:"resultadofiltrorepresentante?nome="+x,success:function(result){
 		$("#autocompleterepresentante").html(""); 
@@ -197,7 +216,7 @@ function selecionarepfunc(x){
 
 function processa(){
 	
-	if(validaPeriodo()){
+	if(validaPeriodo()&& validaFuncao()){
 	var elementoidpessoa = document.getElementById('idpessoa');
 	var idpessoa = new String(elementoidpessoa.value);
 	var elementodata = document.getElementById('data');
