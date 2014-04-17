@@ -1,315 +1,48 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="stylesheet" type="text/css" media="all"
- href="/css/bootstrap.css" />
-
-<title>atimaky</title>
-<style>
-	.pagina{
-	 width: 595pt;
- height: 842pt;
- overflow: none;
- display: block;
-	border: 1;
-	
-}
-body{
-	font-size: 10pt;
-  height: 842px;
-        width: 595px;
-        /* to centre page on screen*/
-       
- border: 1;
-	}
-	.tabela{
-	width: 40%;
-	}
-	.linhas {
-	height: 40px;
-	}
-	.descricao {
-	width: 10px; 
-	text-align: justify;	
-	white-space: normal;
-	word-wrap: break-word;
-	}
-	.direita{
-	text-align: right;
-	}
-</style>
-</head>
-<body>
-		
-		<table border="0" class="pagina"> 
-
-<tfoot> 
-<tr> 
-<td>
-	<p/>
-	<p/>
-	<p/>
-	<p/>
-	<center>
-  	<table style="width: 595pt; text-align: center;">
-  		<tr>
-  			<td>
-  			<img src="/img/logo_pbqp.jpg" width="84" height="80" />
-  			</td>
-  				<td>
-  			<img src="/img/ISO.JPG" width="84" height="80"/>
-  			</td>
-  				<td>
-  			<img src="/img/Qualihab.JPG" width="84" height="80"/>
-  			</td>
-  		</tr>
-  	</table>
-  	</center>
-  <div style="page-break-before:always;"> </div>
-</td> 
-</tr> 
-</tfoot> 
-
-<thead> 
-<tr> 
-<td>
-
-  <table border="0" class="tabela" style="width: 595pt">
+	href="/css/bootstrap.css" />
+	</head>
+<table class="table table-bordered" id="tabela" style="width: 100%">
+	<thead>
 		<tr>
-			<td>
-			<img src="/img/logoGrandeAtimaky.jpg" width="364" height="80" />
-			</td>
-			<td>
-			<center>
-			PORTAS E JANELAS DE AÇO
-			<br/>
-			Tel.: (11) 4645-2100 - Fax: 147/225
-			<br/>
-			http://www.atimaky.com.br
-			<br/>
-			e-mail: atimaky@atimaky.com.br
-			<br/>
-			vendas@atimaky.com.br
-			</center>
-			</td>
+			<td>Nr.Documento</td>
+			<td>Dt.Emissão</td>
+			<td>Empresa</td>
+			<td>Cliente</td>
+			<td>Produto</td>
+			<td>Grupo</td>
+			<td>Qt.Item</td>
+			<td>Vl.Item</td>
+			<td>Aliquota</td>
+			<td>Bonus</td>
+			<td>Comissão</td>
+			
+			
 		</tr>
+	</thead>
+	<tbody>
+		<tr th:each="tabela : ${tabela}">
+			<td th:text="${tabela.nrdocumento}"/>
+			<td th:text="${tabela.dtemissao}"/>
+			<td th:text="${tabela.cdempresa}"/>
+			<td th:text="${tabela.nmpessoa}"/>
+			<td th:text="${tabela.nmproduto}"/>
+			<td th:text="${tabela.nmgrupo}"/>
+			<td th:text="${tabela.qtitem}" class="direita" />
+			<td th:text="${tabela.vlitem}" class="direita" />
+			<td th:text="${tabela.percentual}" class="direita" />
+			<td th:text="${tabela.vladicional}" class="direita" />
+			<td th:text="${#numbers.formatDecimal(tabela.vlcomissao+tabela.vladicional,1,2)}" class="direita" />
+		</tr>
+	</tbody>
+	<tfoot>
 		<tr>
-			<td colspan="2">
-			<center>Rua: Gravataí, 72 - Bairro Quinta da Boa Vista - CEP 08597-629 - Itaquaquecetuba - São Paulo
-			<hr/>
-			</center>
-			</td>
+			<td colspan="10" class="direita">Total comissão</td>
+
 		</tr>
-		<tr>
-			<td>
-			Inscrição Estadual Nº 379.013.287.117
-			</td>
-			<td>
-			C.N.P.J. Nº 47.400.817/0001-10
-			</td>
-		</tr>
-	</table>
-</td> 
-</tr> 
-</thead> 
-
-<tbody> 
-<tr> 
-<td>
-<!-- Aqui São os dados do Cliente -->
-Itaquaquecetuba,
-<span th:text="${#dates.format(data,'dd')}"></span>
-de
-<span th:text="${#dates.format(data,'MMMMM')}"></span>
-de 
-<span th:text="${#dates.format(data,'yyyy')}"></span>
-<br/>
-Dircon <span th:text="${idcontato}"></span>/<span th:text="${#dates.format(data,'yy')}"></span>
-<br/>
-<span th:text="${cabecalho.nmpessoa}"></span>
-<br/>
-Tel./fax:
-<span th:text="${cabecalho.telefone}"></span>
-<br/>
-e-mail:
-<span th:text="${cabecalho.email}"></span>
-<br/>
-At.: 
-<span th:text="${cabecalho.contato}"></span>
-<br/>
-<br/>
-Obra:
-<span th:text="${cabecalho.dscontato}"></span> 
-<br/>
-<br/>
-<center>
-<span style="text-decoration: underline;">ORÇAMENTO PARA FORNECIMENTO DE ESQUADRIAS METÁLICAS</span> 
-<br/>
-<br/>
-
-</center>
-Prezado Cliente: 
-<br/>
-<br/>
-Informamos abaixo, nossas condições comerciais:
-<!-- Fim do Cabeçalho -->
-
-<!-- tabela dos itens -->
-	<table class="table table-bordered">
-		<thead>
-			<tr>
-				<td>Item</td>
-				<td>Discriminação do Material Altura x Largura</td>
-				<td>Qtde. em peças</td>
-				<td>Portas/janelas uni.</td>
-				<td>Contramarco uni</td>
-				<td>Mold.Guarn.<br/>uni.</td>
-				<td>Valor Kit</td>
-				<td>Valor total</td>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="produto : ${produtos}">
-			<td th:text="${produto.contador}"/>
-				<td th:text="${produto.nmproduto}"/>
-				<td th:text="${#numbers.formatDecimal(produto.qtproduto,1,0)}" class="direita" />
-				<td th:text="${#numbers.formatDecimal(produto.vlproduto,2,'POINT',2,'COMMA')}" class="direita"/>
-				<td th:text="${#numbers.formatDecimal(produto.vlcontramarco,2,'POINT',2,'COMMA')}" class="direita"/>
-				<td th:text="${#numbers.formatDecimal(produto.vlmoldura,2,'POINT',2,'COMMA')}" class="direita"/>
-				<td th:text="${#numbers.formatDecimal(produto.vlkit,3,'POINT',2,'COMMA')}" class="direita"/>
-				<td th:text="${#numbers.formatDecimal(produto.vltotalproduto,2,'POINT',2,'COMMA')}" class="direita"/>
-			</tr>
-		</tbody>
-		<tfoot>
-			<tr>
-				<td colspan="4" class="direita">
-				Total Contramarco+Guarnição
-				</td>
-				<td th:text="'R$ '+${#numbers.formatDecimal(ttcontramarco,3,'POINT',2,'COMMA')}" class="direita"></td>
-				<td th:text="${#numbers.formatDecimal(ttmoldura,1,2)}" class="direita"></td>
-				<td></td>
-				<td th:text="${#numbers.formatDecimal(ttcontramold,1,2)}" class="direita"></td>
-				
-			</tr>
-			<tr>
-				<td colspan="4" class="direita">
-				Sub total Porta/janleas
-				</td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td th:text="${#numbers.formatDecimal(subttproduto,1,2)}" class="direita"></td>
-				
-			</tr>
-			<tr>
-				<td colspan="4" class="direita">
-				Total Geral
-				</td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td th:text="'R$ '+${#numbers.formatDecimal(ttgeral,3,'POINT',2,'COMMA')}" class="direita"></td>
-				
-			</tr>
-		</tfoot>
-	</table>
-	<table>
-			<tr>
-				<td>
-				- Linha Orçada
-				</td>
-				<td>
-				COMPLETE LINE
-				</td>
-				</tr>
-				<tr>
-				<td>
-				- Condições de Pagamento
-				</td>
-				<td>
-				<span th:text="${cabecalho.prazo}"></span> 
-				
-				</td>
-				</tr>
-				<tr>
-					<td>
-				- Prazo de Entrega
-				</td>
-				<td>
-				A COMBINAR
-				</td>
-				</tr>
-				<tr>
-					<td>
-				- Transportes
-				</td>
-				<td>
-				CIF / SP
-				</td>
-				</tr>
-				<tr>
-					<td>
-				- IPI
-				</td>
-				<td>
-				ALIQUOTA 0
-				</td>
-				</tr>
-				<tr>
-					<td>
-				- Observações
-				</td>
-				<td>
-				VALORES SUJEITOS A REAJUSTES
-				</td>
-			</tr>
-		</table>		
-		
-		<p/>
-
-* Empresa com Certificado NBR ISO 9001:2000 e Qualificada no NÍVEL "A" do QUALIHAB e do PBQP-H, pela ABNT - Associação Brasileira de Normas
-Técnicas
-<p/>
-AÇO GALVANIZADO Z275 - ZC NBR 7008
-<br/>
-MATERIAL FOSFATIZADO (OXSILAN)
-<br/>
-COM EMBALAGEM (PLÁSTICO)
-<br/>
-PINTURA BRANCA - ELETROSTÁTICA
-<br/>
-COM VIDROS
-<br/>
-CHEKLIST NO FINAL DA OBRA
-<p/>
-Quaisquer informações, estaremos à disposição,				
-<p/>
-Atenciosamente,
-<p/>
-<p/>
-<hr width="300" align="left"/>
-ATIMAKY ESQUADRIAS METÁLIAS LTDA.
-<table style="width: 100%">
-<tr>
-	<td>Amanda Rosete</td>
-	<td>MARCO A.ARAUJO</td>
-</tr>
-<tr>
-<td>Depto. Vendas Engenharia / Interno</td>
-<td>Depto. Vendas Engenharia / Interno</td>
-</tr>
+	</tfoot>
 </table>
-	
-
-
-</td> 
-</tr> 
-</tbody> 
-
-</table> 
-	   
-	   <div style="page-break-before:avoid;"> </div>
-</body>
-</html>
+</html>	

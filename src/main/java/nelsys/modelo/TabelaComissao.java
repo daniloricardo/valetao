@@ -24,7 +24,14 @@ public class TabelaComissao {
 	private String idfechamento;
 	private String historico;
 	private String tipo;
+	private String idlancamentodb;
 	
+	public void setIdlancamentodb(String idlancamentodb) {
+		this.idlancamentodb = idlancamentodb;
+	}
+	public String getIdlancamentodb() {
+		return idlancamentodb;
+	}
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}

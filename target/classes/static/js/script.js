@@ -59,7 +59,9 @@ $(document).ready(function(){
 		
 		window.location="/";
 	});
-	
+	$('#fechamentos').click(function(){
+		window.location="/fechamentos";
+	});
 	$('#regra').click(function(){
 		window.location="/regra";
 	});
@@ -163,17 +165,25 @@ function validaPeriodo(){
 }
 function confirmafechamento(){
 	if(validaPeriodo()){
-		bootbox.confirm('Confirma Efetuar o Fechamento?', function(result){
-			$.ajax({url:"fechamento",success:function(result){
-			
-		}});
-		alert('teste');	
+		var representante = $("#selecionado");
+		var data = $("#data");
+		var idpessoa = new String($("#idpessoa").val());
+		bootbox.confirm('Confirma Efetuar o Fechamento da comissão do(a) '+
+				representante.val()+', data Final: '+data.val()+' ?'
+				, function(result){
+			if(result){
+			$.ajax({
+				data: {idpessoa : idpessoa, data : data.val() },
+				url:"fechamento",success:function(result){
+					alert(result);
+			}});
+			}
 		}
 			
 
 );
 	}
-	return false;
+	
 }
 
 function selecionarepfunc(x){
@@ -187,7 +197,7 @@ function selecionarepfunc(x){
 
 function processa(){
 	
-	validaPeriodo();
+	if(validaPeriodo()){
 	var elementoidpessoa = document.getElementById('idpessoa');
 	var idpessoa = new String(elementoidpessoa.value);
 	var elementodata = document.getElementById('data');
@@ -201,7 +211,7 @@ function processa(){
 		$("#resultadotabela").html(result);
 		
 		  }});
-		
+	}
 }
 function aplica(x){
 	

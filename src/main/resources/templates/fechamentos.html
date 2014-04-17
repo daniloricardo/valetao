@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="template">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" media="all"
+	href="/css/bootstrap.css" />
+
+<title>Comissão Valetão</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<table class="table">
+			<thead>
+				<tr>
+					<td>Codigo</td>
+					<td>Data Fechamento</td>
+				</tr>
+			</thead>
+			<tr th:each="fechamento : ${fechamentos}">
+				<td th:text="${fechamento.id}" />
+				<td th:text="${#dates.format(fechamento.data,'dd/MM/yyyy HH:mm')}" />
+				<td><a th:href="'/imprime/'+${fechamento.id}" target="blank"><img src="/img/imprimir.gif"/></a></td>
+			</tr>
+		</table>
+	
+		
+	</div>
+	
+	
+</body>
+</html>

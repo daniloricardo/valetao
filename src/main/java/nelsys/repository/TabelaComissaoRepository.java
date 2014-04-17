@@ -42,17 +42,50 @@ public class TabelaComissaoRepository {
 				" stliberado nvarchar(1), "+
 				" idfechamento integer, "+
 				" tipo nvarchar(1), "+
-				" historico nvarchar(1000), "+
-				" nmgrupo nvarchar(255) "+
+				" historico nvarchar(1000)," +
+				" idlancamentoDB integer "+
+				" ) END";
+		PreparedStatement pp = dataSource.getConnection()
+				.prepareStatement(create);
+		pp.execute();
+	}
+	public void executaCreateLancamento() throws SQLException{
+		String create = ""+
+				" IF object_id('Nsys_LancamentoDebitoCredito') IS NULL BEGIN   "+ 
+				" create table Nsys_LancamentoDebitoCredito( "+
+				" id integer primary key identity, "+
+				" idvendedor nvarchar(255) not null, "+
+				" nrdocumento nvarchar(255), "+
+				" dtmovimento datetime not null, "+
+				" empresa integer not null, "+
+				" nmvendedor nvarchar(255), "+
+				" produto nvarchar(255), "+
+				" grupo nvarchar(255), "+
+				" qtitem float, "+
+				" vlitem float, "+
+				" vlcomissao float, "+
+				" idgrupo nvarchar(255), "+
+				" percentual float, "+
+				" cliente nvarchar(255), "+
+				" vladicional float, "+
+				" vlbonificacao float, "+
+				" stliberado nvarchar(1), "+
+				" idfechamento integer, "+
+				" tipo nvarchar(1), "+
+				" historico nvarchar(1000)," +
+				" idlancamentoDB integer "+
 				" ) END";
 		PreparedStatement pp = dataSource.getConnection()
 				.prepareStatement(create);
 		pp.execute();
 	}
 	
+	
+	
 	public List<TabelaComissao> listaporvendedor(String idpessoa,String data,String nmfuncao) throws SQLException{
 	
 		executaCreate();
+		executaCreateLancamento();
 		
 		String query = ""+
 				" With RegraComissao as  "+
@@ -79,6 +112,7 @@ public class TabelaComissaoRepository {
 				" , RC.VlBonificacao "+
 				" , 'N' as stliberado "+
 				" , null as idfechamento "+
+				"  , '' as idlancamentoDB "+
 				" from "+
 				" Documento D  "+
 				" INNER JOIN LoteEstoque LE ON (D.IdLoteEstoque = LE.IdLoteEstoque) "+
@@ -93,6 +127,8 @@ public class TabelaComissaoRepository {
 				" LEFT OUTER JOIN PessoaComplementar PC ON (P.IdPessoa = PC.IdPessoa) "+
 				" Where DIR.IdPessoa = ?  and D.DtEmissao <= ? and RC.NmCampo = 	? "+
 				"  and O.TpOperacao = 'V' and D.StDocumentoCancelado = 'N' "+
+				" and D.NrDocumento not in "+
+				" ( select NrDocumento from nsys_tabelacomissao where idvendedor = ? and DtEmissao <= ?) "+
 				" group by "+
 				"  RC.NmCampo "+
 				" ,D.NrDocumento "+
@@ -125,15 +161,18 @@ public class TabelaComissaoRepository {
 				" vlitem, "+
 				" vlcomissao, "+
 				" idvendedor, "+
-				" grupo, "+
-				" nmgrupo,	 "+
+				" idgrupo, "+
+				" grupo,	 "+
 				" percentual, "+
 				" vladicional, "+
 				" vlbonificacao, "+
 				" stliberado, "+
-				" idfechamento "+
-				" from nsys_tabelacomissao "+
-				" Where idvendedor = ?  and dtmovimento <= ? ";
+				" idfechamento, "+
+				" id "+
+				" from Nsys_LancamentoDebitoCredito "+
+				" Where idvendedor = ?  and dtmovimento <= ? "+
+				" and id not in "+
+				" (select idlancamentodb from nsys_tabelacomissao )";
 		PreparedStatement pp = dataSource.getConnection()
 				.prepareStatement(query);
 		pp.setString(1, idpessoa);
@@ -141,6 +180,9 @@ public class TabelaComissaoRepository {
 		pp.setString(3, nmfuncao);
 		pp.setString(4, idpessoa);
 		pp.setString(5, data);
+		pp.setString(6, idpessoa);
+		pp.setString(7, data);
+		
 		ResultSet rs = pp.executeQuery();
 		List<TabelaComissao> lista = new ArrayList<TabelaComissao>();
 		TabelaComissao tabelaComissao;
@@ -159,17 +201,19 @@ public class TabelaComissaoRepository {
 			tabelaComissao.setIdgrupo(rs.getString("idgrupoproduto"));
 			tabelaComissao.setPercentual(rs.getDouble("percentual"));
 			tabelaComissao.setVladicional(rs.getDouble("VlAdicional"));
+			tabelaComissao.setIdlancamentodb(rs.getString("idlancamentoDB"));
 			lista.add(tabelaComissao);
 		}
 		return lista;
 	}
 	public void insertLancamentoCD(TabelaComissao t) throws SQLException{
 		executaCreate();
+		executaCreateLancamento();
 		t.setDtemissao(converte(t.getDtemissao()));
-		String insert = "insert into nsys_tabelacomissao "+
-		"(tipo,idvendedor,dtmovimento,historico,vlcomissao,empresa,stliberado) "+
+		String insert = "insert into Nsys_LancamentoDebitoCredito "+
+		"(tipo,idvendedor,dtmovimento,historico,vlcomissao,empresa,stliberado,nrdocumento) "+
 				" values "+
-		"(?,?,?,?,?,?,?)";
+		"(?,?,?,?,?,?,?,?)";
 		PreparedStatement pp = dataSource.getConnection()
 				.prepareStatement(insert);
 		pp.setString(1, t.getTipo());
@@ -179,6 +223,7 @@ public class TabelaComissaoRepository {
 		pp.setDouble(5, t.getVlcomissao());
 		pp.setString(6, t.getCdempresa());
 		pp.setString(7, "S");
+		pp.setString(8, "");
 		pp.execute();
 	}
 	public static String converte(String data){
