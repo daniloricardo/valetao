@@ -9,7 +9,7 @@
 <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css"
 	href="/css/bootstrap-responsive-min.css" />
-<title>Layout</title>
+<title>Comissão Valetão</title>
 <script src="/js/jquery.js"></script>
 <script type="text/javascript" src="/js/bootstrap.js"></script>
 <script type="text/javascript" src="/js/autocomplete.js"></script>
@@ -31,10 +31,11 @@
 				<input type="submit" value="Sair" class="btn btn-primary" />
 
 			</div>
+			<img src="/img/Nel_pequena.png" style="float: right" />
 		</form>
 		 <div id="loading">
-		 
-  			<img src="/img/gif-load.gif" /> Please Wait!
+		 	
+  			<img src="/img/gif-load.gif" /> <b>Please Wait!</b>
   			
 	</div>
 
@@ -42,9 +43,9 @@
 		<table class="table">
 			<tr>
 
-				<td><br /> <span th:inline="text">Seja Bem vindo! Sr(a)
+				<td><span th:inline="text">Seja Bem vindo! Sr(a)
 						[[${#httpServletRequest.remoteUser}]]!</span></td>
-				<td><img src="/img/Nel_pequena.png" style="float: right" /></td>
+				<td th:text="${#dates.format(#dates.createToday(),'dd/MM/yyyy')}" class="direita"></td>
 			</tr>
 		</table>
 

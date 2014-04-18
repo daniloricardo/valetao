@@ -94,6 +94,7 @@ public class TabelaComissaoRepository {
 				" Select  "+
 				" D.NrDocumento "+
 				" , Convert(Varchar,D.DtEmissao,103) as DtEmissao "+
+				" , DtEmissao  as DtOriginal "+
 				" , LE.CdEmpresa "+
 				" , Cli.NmPessoa "+
 				" , Prod.NmProduto "+
@@ -149,10 +150,12 @@ public class TabelaComissaoRepository {
 				" , RC.VlAdicional "+
 				" , RC.VlBonificacao "+
 				" , O.TpOperacao "+
+				
 				" UNION "+
 				"  select "+ 
 				" nrdocumento, "+
 				" Convert(Varchar,dtmovimento,103) as dtmovimento, "+
+				"  dtmovimento as t,  "+
 				" empresa, "+
 				" case when cliente is null then ( "+
 				" case when tipo = 'D' then 'Debito' else 'Crédito'end) end  as cliente, "+
@@ -172,7 +175,8 @@ public class TabelaComissaoRepository {
 				" from Nsys_LancamentoDebitoCredito "+
 				" Where idvendedor = ?  and dtmovimento <= ? "+
 				" and id not in "+
-				" (select idlancamentodb from nsys_tabelacomissao )";
+				" (select idlancamentodb from nsys_tabelacomissao )"+
+				" order by dtoriginal ";
 		PreparedStatement pp = dataSource.getConnection()
 				.prepareStatement(query);
 		pp.setString(1, idpessoa);
