@@ -13,7 +13,7 @@
 
 	<div layout:fragment="content">
 		<h4>Regras de Comissão</h4>
-		<form method="post" action="gravaregra">
+		<form method="post" action="gravaregra" name="form">
 		<div class="form-group">
 			<label for="representante">
 				Selecione a função...
@@ -24,7 +24,7 @@
 				th:value="${funcao.idfuncao}"
 				></option>
 			</select>
-			<input type="submit" class="btn btn-primary" value="Gravar"/>	
+			
 		</div>
 		
 		<div id="grupos"></div>

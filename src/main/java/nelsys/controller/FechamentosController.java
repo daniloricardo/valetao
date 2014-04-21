@@ -31,7 +31,7 @@ public class FechamentosController {
 		map.put("tabela", fechamentoRepository.listaFechados(id));
 		map.put("fechamento", fechcomissao);
 		for(TabelaComissao t : fechamentoRepository.listaFechados(id)){
-			totalcomissao += t.getVlcomissao();
+			totalcomissao += ( t.getVlcomissao() + t.getVladicional());
 		}
 		map.put("total", totalcomissao);
 		return "imprime";

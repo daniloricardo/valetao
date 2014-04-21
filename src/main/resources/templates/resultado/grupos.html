@@ -1,6 +1,7 @@
  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
  <input type="text" class="form-control col md-1" placeholder="Percentual Geral" id="percentualgeral"
-onchange="aplicapercentual(this.value)"/>
+onchange="aplicapercentual(this.value)" onKeyDown="verifica()"/>
+<input type="button" class="btn btn-primary" value="Gravar" onclick="confirmaAlteraPercentual()"/>	
 <table class="table table-bordered">
 	<thead>
 		<tr>
@@ -17,4 +18,7 @@ onchange="aplicapercentual(this.value)"/>
 		</tr>
 	</tbody>
 </table>
-<input type="submit" class="btn btn-primary" value="Gravar"/>	
+<input type="button" class="btn btn-primary" value="Gravar" onclick="confirmaAlteraPercentual()"/>	
+<script type="text/javascript">
+$('form').submit(false);
+</script>

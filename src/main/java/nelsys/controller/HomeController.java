@@ -93,7 +93,7 @@ public class HomeController {
 		}
 	}
 	@RequestMapping("gravaregra")
-	public String gravaregra(HttpServletRequest request) throws SQLException{
+	public String gravaregra(HttpServletRequest request,ModelMap map) throws SQLException{
 		System.out.println("grava regra....");
 		String idfuncao = request.getParameter("nmfuncao");
 		System.out.println("idfuncao: "+idfuncao);
@@ -124,6 +124,7 @@ public class HomeController {
 			System.out.println("listaregra.size(): "+listaregra.size());
 			regraRepository.insere(listaregra);
 		}
+		map.put("funcoes", funcaoRepository.lista());
 		return "regra";
 	}
 	@RequestMapping("lancamento")

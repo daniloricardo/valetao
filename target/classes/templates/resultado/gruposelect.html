@@ -6,7 +6,7 @@
 			
 		<div class="form-inline">
 			<select id="gruposelect" name="grupo">
-				<option>Selecione o Grupo...</option>
+				<option value="">Selecione o Grupo...</option>
 				<option th:each="grupo : ${grupos}"
 				th:value="${grupo.idgrupoproduto}"
 			 	th:text="${grupo.nmgrupoproduto}"/>
@@ -15,9 +15,9 @@
 		</div>
 	</fieldset>
 	<div id="produtos"></div>
-<input type="submit" class="btn btn-primary" value="Gravar"/>	
+<input type="button" class="btn btn-primary" value="Gravar" onclick="confirmaAlteraPercentualBonus()"/>	
 <script type="text/javascript">
-
+$('form').submit(false);
 $("#bonusgeral").change(function(){
 	aplicaBonus();
 });

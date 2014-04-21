@@ -60,7 +60,7 @@ public class FechamentoRepository {
 			pp.setString(7, t.getNmgrupo());
 			pp.setDouble(8, t.getQtitem());
 			pp.setDouble(9, t.getVlitem());
-			pp.setDouble(10, t.getVlcomissao()+t.getVladicional());
+			pp.setDouble(10, t.getVlcomissao());
 			pp.setString(11, t.getIdgrupo());
 			pp.setDouble(12, t.getPercentual());
 			pp.setString(13, t.getNmpessoa());

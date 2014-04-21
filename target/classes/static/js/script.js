@@ -256,12 +256,12 @@ function aplica(x){
 	
 }
 function aplicapercentual(x){
-	
 	var produtos = document.getElementsByName('comissao');
 	var tamanho = produtos.length;
 	for(var i=0;i < tamanho;i++){
 		produtos[i].value = x;
 	}
+	
 	
 }
 function convertehidden(x){
@@ -270,4 +270,36 @@ function convertehidden(x){
 	var array = x.split('_'); 
 	
 	$('#_'+array[1]).val(x);
+}
+
+function verifica(){
+	if(window.event.keyCode == 13){
+		bootbox.confirm('Confirma Alterar o percentual geral?', function(result){
+			if(result){
+				document.form.submit();
+			}
+		});
+	}
+
+	return false;
+	
+}
+function confirmaAlteraPercentual(){	
+		bootbox.confirm('Confirma  a operação?', function(result){
+				if(result){
+					document.form.submit();
+				}
+		});
+}
+
+	function confirmaAlteraPercentualBonus(){
+		
+		var grupo =  document.getElementById('gruposelect').value;
+		if(grupo != ''){
+			bootbox.confirm('Confirma  a operação?', function(result){
+					if(result){
+						document.form.submit();
+					}
+				});
+		}
 }

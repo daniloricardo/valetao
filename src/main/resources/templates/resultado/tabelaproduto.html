@@ -1,6 +1,7 @@
  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <input type="text" class="form-control col md-1" placeholder="Bônus Geral" id="bonusgeral"
-onchange="aplica(this.value)"/>
+onchange="aplica(this.value)" onKeyDown="verifica()"/>
+<input type="button" class="btn btn-primary" value="Gravar" onclick="confirmaAlteraPercentual()"/>	
 <table class="table table-bordered" id="tabela" style="width: 100%">
 	<thead>
 		<tr>

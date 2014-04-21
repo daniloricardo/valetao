@@ -27,7 +27,7 @@
 				<td th:text="${fechamento.nmvendedor}" />
 				<td th:text="${#dates.format(fechamento.data,'dd/MM/yyyy HH:mm')}" />
 				<td th:text="${fechamento.datareferencia}"/>
-				<td><a href="#" onclick="confirmaReabertura(this.id)" th:id="${fechamento.id}">Reabrir</a></td>
+				<td><a href="#" onclick="confirmaReabertura(this.id)" th:id="${fechamento.id}"><img src="/img/arrow_undo.png"/></a></td>
 				<td><a th:href="'/imprime/'+${fechamento.id}" target="blank"><img src="/img/imprimir.gif"/></a></td>
 			</tr>
 		</table>

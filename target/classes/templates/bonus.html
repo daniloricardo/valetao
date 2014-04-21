@@ -13,7 +13,7 @@
 
 	<div layout:fragment="content">
 	<h4>Bonus</h4>
-		<form method="post" action="aplicabonus">
+		<form method="post" action="aplicabonus" name="form">
 		<div class="form-group">
 			<label for="representante">
 				Selecione a função...
@@ -24,7 +24,7 @@
 				th:value="${funcao.idfuncao}"
 				></option>
 			</select>
-			<input type="submit" class="btn btn-primary" value="Gravar"/>	
+				
 		</div>
 		
 		<div id="grupos"></div>
