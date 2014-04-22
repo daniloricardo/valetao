@@ -1,3 +1,4 @@
 create
 table Nsys_RegraComissao
 (NmCampo nvarchar(255), IdGrupoProduto nvarchar(255), NmGrupoProduto nvarchar(255), Percentual float, VlAdicional float, VlBonificacao float) 
+.
