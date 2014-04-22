@@ -17,7 +17,7 @@ public class FuncaoRepository {
 	
 	@SuppressWarnings("unchecked")
 	public List<Funcao> lista(){
-		return entityManager.createQuery("from Funcao f where f.cdclassificacao like 'NSYS%' ").getResultList();
+		return entityManager.createQuery("from Funcao f where f.cdclassificacao like 'NSYS%'").getResultList();
 	}
 	public Funcao findById(String idfuncao){
 		return entityManager.find(Funcao.class, idfuncao);
