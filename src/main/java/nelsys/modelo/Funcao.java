@@ -11,6 +11,14 @@ public class Funcao {
 	private String cdchamada;
 	private String nmfuncao;
 	private String tpfuncao;
+	private String cdclassificacao;
+	
+	public void setCdclassificacao(String cdclassificacao) {
+		this.cdclassificacao = cdclassificacao;
+	}
+	public String getCdclassificacao() {
+		return cdclassificacao;
+	}
 	public String getIdfuncao() {
 		return idfuncao;
 	}
