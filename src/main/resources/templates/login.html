@@ -18,17 +18,27 @@
 	<h3>Login</h3>
 		  <form th:action="@{/login}" method="post">
 			<input type="text" class="form-control" placeholder="Login" name="username" />
-			<input type="password" class="form-control" placeholder="Senha" name="password" />
-			<input class="btn btn-primary" type="submit" value="Entrar"/>
+			<br/>
+			<div class="form-inline" style="width: 100%">
+			<input type="password" class="form-control" placeholder="Senha" name="password" style="width:78%" />
+			<input class="btn btn-primary" type="submit" value="Entrar" style="width:20%"/>
+			</div>
+			<br/>
+			<center>
+			Prazo de validade técnica da versão: 30 dias
+			
 			<br/>
 			Versão: 1.00 data 21/04/2014
 			<br/>
-			Prazo de validade técnica da versão: 30 dias
-			<div th:if="${param.error}">
+			
+			<div th:if="${param.error}" style="color: red;">
+			<b>
             Usuário ou Senha Inválidos.
+            </b>
         </div>
-        <div th:if="${param.logout}">
-            Você efetuou o Log-of.
+        </center>
+        <div th:if="${param.logout}" style="color: red;">
+            <b>Você efetuou o Log-of.</b>
         </div>
        
 		</form>
