@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorator="template">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" media="all"
+	href="/css/bootstrap.css" />
+
+<title>Comissão Valetão</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<h4>Configuração</h4>
+		<form method="post" action="gravaconfiguracao" name="form">
+		<div class="form-group">
+			Data de Corte:
+			<input type="text" class="form-control input-date" id="datacorte" name="datacorte" placeholder="Data de Corte"
+			style="width: 20%"/>
+			<br/>
+			<input type="submit" value="Gravar" class="btn btn-primary"/>
+		</div>
+		</form>
+		
+			<script src="/js/bootstrap-datepicker.js"></script>
+		
+		<script type="text/javascript">
+		
+		  $('.input-date').datepicker({
+	    	language: "pt-BR",
+	    	format: "dd/mm/yyyy",
+	    	autoclose: true,
+	    	todayHighlight: true
+	    });
+		</script>
+	</div>
+</body>
+</html>

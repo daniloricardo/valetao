@@ -18,6 +18,8 @@ public class TabelaComissaoRepository {
 
 	@Autowired
 	DataSource dataSource;
+	@Autowired
+	ConfiguracaoRepository configuracaoRepository;
 	
 	public void executaCreate() throws SQLException{
 		String create = ""+
@@ -86,7 +88,7 @@ public class TabelaComissaoRepository {
 	
 		executaCreate();
 		executaCreateLancamento();
-		
+		String datacorte = configuracaoRepository.configuracaoPorNmconfiguracao("datacorte").getVlconfiguracao();
 		String query = ""+
 				" With RegraComissao as  "+
 				" ( Select NmCampo, IdGrupoProduto, NmGrupoProduto, Percentual, VlAdicional, VlBonificacao from Nsys_RegraComissao "+ 
@@ -126,7 +128,7 @@ public class TabelaComissaoRepository {
 				" JOIN RegraComissao RC on (RC.IdGrupoProduto = GP.IdGrupoProduto) "+
 				" LEFT OUTER JOIN Pessoa  P ON (DIR.IdPessoa = P.IdPessoa) "+
 				" LEFT OUTER JOIN PessoaComplementar PC ON (P.IdPessoa = PC.IdPessoa) "+
-				" Where DIR.IdPessoa = ?  and D.DtEmissao <= ? and RC.NmCampo = 	? "+
+				" Where DIR.IdPessoa = ?  and D.DtEmissao between ? and ? and RC.NmCampo = 	? "+
 				"  and O.TpOperacao = 'V' and D.StDocumentoCancelado = 'N' "+
 				" and D.NrDocumento not in "+
 				" ( select isnull(NrDocumento,0) from nsys_tabelacomissao where idvendedor = ? and DtEmissao <= ?) "+
@@ -173,19 +175,21 @@ public class TabelaComissaoRepository {
 				" idfechamento, "+
 				" id "+
 				" from Nsys_LancamentoDebitoCredito "+
-				" Where idvendedor = ?  and dtmovimento <= ? "+
+				" Where idvendedor = ?  and dtmovimento between ? and ? "+
 				" and id not in "+
 				" (select idlancamentodb from nsys_tabelacomissao )"+
 				" order by dtoriginal ";
 		PreparedStatement pp = dataSource.getConnection()
 				.prepareStatement(query);
 		pp.setString(1, idpessoa);
-		pp.setString(2, data);
-		pp.setString(3, nmfuncao);
-		pp.setString(4, idpessoa);
-		pp.setString(5, data);
-		pp.setString(6, idpessoa);
-		pp.setString(7, data);
+		pp.setString(2, datacorte);
+		pp.setString(3, data);
+		pp.setString(4, nmfuncao);
+		pp.setString(5, idpessoa);
+		pp.setString(6, data);
+		pp.setString(7, idpessoa);
+		pp.setString(8, datacorte);
+		pp.setString(9, data);
 		
 		ResultSet rs = pp.executeQuery();
 		List<TabelaComissao> lista = new ArrayList<TabelaComissao>();

@@ -71,6 +71,10 @@ $(document).ready(function(){
 	$('#paginacao').click(function(){
 		window.location="pagina/1";
 	});
+	$("#configuracao").click(function(){
+		
+		window.location="/configuracao";
+	});
 	$('#btSalva').click(function(){
 		
 		tipolancamento = $("#tipolancamento").val();
