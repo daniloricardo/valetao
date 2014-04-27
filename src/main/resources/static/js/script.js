@@ -29,6 +29,19 @@ $(document).ready(function(){
 	 });
 	 $("#funcaobonus").change(function(){
 		 
+		 if($("#duplica").is(':checked')){
+			 $("#loading").show();
+			  $.ajax({
+				  data: {idfuncao : this.value},
+				  url:"grupobonusduplica?",success:function(result){
+				  $("#loading").hide();
+				 $("#grupos").html(result);
+				
+				  }});
+			 
+		 }
+		 else {
+		 
 		 $("#loading").show();
 		  $.ajax({
 			  url:"grupobonus?",success:function(result){
@@ -36,7 +49,7 @@ $(document).ready(function(){
 			 $("#grupos").html(result);
 			
 			  }});
-		 
+		 }
 	 });
 	
 	 $("#processa").click(function(){
@@ -52,7 +65,7 @@ $(document).ready(function(){
 			  }});
 	});
 	
-	$('.dados').click(function(){
+	$('#duplicar').click(function(){
 		alert('teste');
 	});
 	$("#home").click(function(){

@@ -83,6 +83,27 @@ public class AutoCompleteController {
 		map.put("grupos", grupoRepository.lista());
 		return "resultado/gruposelect";
 	}
+	@RequestMapping("grupobonusduplica")
+	public String grupobonusduplica(ModelMap map, HttpServletRequest request){
+		String idfuncao = request.getParameter("idfuncao");
+		System.out.println("idfuncao: "+idfuncao);
+		map.put("grupos", grupoRepository.lista());
+		map.put("funcoes", funcaoRepository.listaDestinos(idfuncao));
+		return "resultado/gruposelectduplica";
+	}
+	@RequestMapping("duplicabonus")
+	public String duplicabonus(ModelMap map, HttpServletRequest request) throws SQLException{
+		String idfuncaoorigem = request.getParameter("nmfuncao");
+		System.out.println("idfuncaoorigem: "+idfuncaoorigem);
+		String idgrupo = request.getParameter("grupo");
+		System.out.println("GRUPO: "+idgrupo);
+		System.out.println("idfuncaoorigem: "+idfuncaoorigem);
+		String idfuncaodestino = request.getParameter("funcaodestino");
+		System.out.println("idfuncaodestino: "+idfuncaodestino);
+		regraRepository.duplicar(idfuncaoorigem, idfuncaodestino,idgrupo);
+		map.put("funcoes", funcaoRepository.lista());
+		return "bonus";
+	}
 	@RequestMapping("produtos")
 	public String produtos(ModelMap map,String id,HttpServletRequest request) throws SQLException{
 		String idfuncao = request.getParameter("idfuncao");

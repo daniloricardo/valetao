@@ -1,0 +1,42 @@
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<fieldset>
+		<legend>Grupo</legend>
+	
+			
+		<div class="form-inline">
+			<select id="gruposelect" name="grupo">
+				<option value="">Selecione o Grupo...</option>
+				<option th:each="grupo : ${grupos}"
+				th:value="${grupo.idgrupoproduto}"
+			 	th:text="${grupo.nmgrupoproduto}"/>
+			</select>
+			
+		</div>
+	</fieldset>
+
+	
+	<fieldset>
+		<legend>Função Destino</legend>
+	
+			
+		<div class="form-inline">
+			<select id="funcaodestino" name="funcaodestino">
+				<option value="">Selecione a Função Destino...</option>
+				<option th:each="funcao : ${funcoes}" th:text="${funcao.nmfuncao}"
+				th:value="${funcao.idfuncao}" />
+				</select>
+			
+		</div>
+		<input type="button" id="duplicar" value="Duplicar" class="btn btn-primary"/>
+	</fieldset>
+
+<script type="text/javascript">
+
+$('#duplicar').click(function(){
+	$("#form").attr("action","duplicabonus");
+	$("#form").submit();
+});
+	
+
+</script>

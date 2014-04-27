@@ -73,4 +73,43 @@ public class RegraRepository {
 		}
 		return vlbonus;
 	}
+	public void duplicar(String idfuncaoorigem,String idfuncaodestino,String idgrupo) throws SQLException{
+		String query = "select * from Nsys_bonusproduto "+
+				" where idfuncao = ? and idgrupo = ? ";
+		PreparedStatement pp = dataSource.getConnection().prepareStatement(query);
+		pp.setString(1, idfuncaodestino);
+		pp.setString(2, idgrupo);
+		ResultSet rs = pp.executeQuery();	
+		PreparedStatement pp3 = dataSource.getConnection().prepareStatement(query);
+		pp3.setString(1, idfuncaodestino);
+		pp3.setString(2, idgrupo);
+		ResultSet rs2 = pp3.executeQuery();	
+		PreparedStatement pp2;
+		if(rs.next()){
+			System.out.println("sim existe!");
+			while(rs2.next()){
+				System.out.println("percorrendo");
+			String queryB = "update Nsys_bonusproduto "+
+					" set vlbonus = ? "+
+					" where idfuncao = ? "+
+					" and idproduto = ?";
+			pp2 = dataSource.getConnection().prepareStatement(queryB);
+			pp2.setDouble(1, rs2.getDouble("vlbonus"));
+			pp2.setString(2, idfuncaodestino);
+			pp2.setString(3, rs2.getString("idproduto"));
+			pp2.execute();
+		}
+		}
+		else {
+			System.out.println("nao existe");
+			String queryC = "insert into Nsys_bonusproduto "+
+			"(idfuncao,idgrupo,idproduto,vlbonus) "+
+					"select ?,idgrupo,idproduto,vlbonus from Nsys_bonusproduto where idfuncao = ? and idgrupo = ? ";
+			pp2 = dataSource.getConnection().prepareStatement(queryC);
+			pp2.setString(1, idfuncaodestino);
+			pp2.setString(2, idfuncaoorigem);
+			pp2.setString(3, idgrupo);
+			pp2.execute();
+		}
+	}
 }

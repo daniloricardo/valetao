@@ -13,7 +13,7 @@
 
 	<div layout:fragment="content">
 	<h4>Bonus</h4>
-		<form method="post" action="aplicabonus" name="form">
+		<form method="post" action="aplicabonus" name="form" id="form">
 		<div class="form-group">
 			<label for="representante">
 				Selecione a função...
@@ -24,7 +24,9 @@
 				th:value="${funcao.idfuncao}"
 				></option>
 			</select>
-				
+			&nbsp;&nbsp;&nbsp;
+			<input type="checkbox" value="Duplicar" id="duplica"/>
+			Duplicar
 		</div>
 		
 		<div id="grupos"></div>
