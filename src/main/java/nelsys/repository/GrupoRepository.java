@@ -17,7 +17,7 @@ public class GrupoRepository {
 	
 	@SuppressWarnings("unchecked")
 	public List<GrupoProduto> lista(){
-		return entityManager.createQuery("from GrupoProduto g ").getResultList();
+		return entityManager.createQuery("from GrupoProduto g  order by g.nmgrupoproduto").getResultList();
 	}
 	public GrupoProduto findByIndice(int indice){
 		return (GrupoProduto) entityManager.createQuery("from GrupoProduto p").getResultList().get(indice);

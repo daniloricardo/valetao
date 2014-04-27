@@ -209,6 +209,19 @@ public class TabelaComissaoRepository {
 			tabelaComissao.setIdgrupo(rs.getString("idgrupoproduto"));
 			tabelaComissao.setPercentual(rs.getDouble("percentual"));
 			tabelaComissao.setVladicional(rs.getDouble("VlAdicional"));
+			if(configuracaoRepository.configuracaoPorNmconfiguracao("grupopercentual") != null 
+					&& tabelaComissao.getIdgrupo() != null){
+				if(
+						tabelaComissao.getIdgrupo().equals(
+								configuracaoRepository.configuracaoPorNmconfiguracao("grupopercentual").getVlconfiguracao())){
+					System.out.println("esta configurado percentual");
+					System.out.println("bonus: "+rs.getDouble("VlAdicional"));
+					tabelaComissao.setVladicional(
+						(tabelaComissao.getVlitem() *
+						rs.getDouble("VlAdicional"))/100);
+				}
+				
+			}
 			tabelaComissao.setIdlancamentodb(rs.getString("idlancamentoDB"));
 			lista.add(tabelaComissao);
 		}

@@ -19,6 +19,14 @@
 			<input type="text" class="form-control input-date" id="datacorte" name="datacorte" placeholder="Data de Corte"
 			style="width: 20%"/>
 			<br/>
+			Grupo de Bonus que será considerado %(percentual)
+			<br/>
+			<select id="gruposelect" name="grupo">
+				<option value="">Selecione o Grupo...</option>
+				<option th:each="grupo : ${grupos}"
+				th:value="${grupo.idgrupoproduto}"
+			 	th:text="${grupo.nmgrupoproduto}"/>
+			</select>
 			<input type="submit" value="Gravar" class="btn btn-primary"/>
 		</div>
 		</form>
