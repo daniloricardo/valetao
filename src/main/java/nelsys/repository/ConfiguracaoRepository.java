@@ -35,10 +35,13 @@ public class ConfiguracaoRepository {
 			lista.add(c);
 			
 		}
+		statement.close();
+		rs.close();
+		dataSource.getConnection().close();
 		return lista;
 	}
 	public Configuracao configuracaoPorNmconfiguracao(String nmconfiguracao) throws SQLException{
-		create();
+		
 		Statement statement = dataSource.getConnection().createStatement();
 		String query = "select * from Nsys_configuracaocomissao where nmconfiguracao = '"+nmconfiguracao+"'";
 		ResultSet rs = statement.executeQuery(query);
@@ -49,6 +52,9 @@ public class ConfiguracaoRepository {
 			c.setVlconfiguracao(rs.getString("vlconfiguracao"));
 			c.setUsuario(rs.getString("usuario"));
 		}
+		statement.close();
+		rs.close();
+		dataSource.getConnection().close();
 		return c;
 	}
 	public void create() throws SQLException{
@@ -57,9 +63,11 @@ public class ConfiguracaoRepository {
 				"(nmconfiguracao nvarchar(255),vlconfiguracao nvarchar(255), usuario nvarchar(255)) end";
 		PreparedStatement pp = dataSource.getConnection().prepareStatement(query);
 		pp.execute();
+		pp.close();
+		dataSource.getConnection().close();
 	}
 	public void insertorupdate(Configuracao c) throws SQLException{
-		create();
+		
 		Statement st = dataSource.getConnection().createStatement();
 		String queryA = "select * from Nsys_configuracaocomissao "+
 		" where nmconfiguracao ='"+c.getNmconfiguracao()+"'";
@@ -80,7 +88,42 @@ public class ConfiguracaoRepository {
 		pp.setString(2, c.getVlconfiguracao());
 		pp.setString(3, c.getUsuario());
 		pp.execute();
+		pp.close();
+		st.close();
+		rs.close();
+		dataSource.getConnection().close();
 		}
 	}
-	
+	public String datacorte() throws SQLException{
+		create();
+		String query = "select "+ 
+				" vlconfiguracao "+
+				" from Nsys_Configuracaocomissao where nmconfiguracao = 'datacorte'";
+		String data = "";
+		Statement st = dataSource.getConnection().createStatement();
+		ResultSet rs = st.executeQuery(query);
+		while(rs.next()){
+			data = rs.getString("vlconfiguracao");
+		}
+		rs.close();
+		st.close();
+		dataSource.getConnection().close();
+		return data;
+	}
+	public String grupoatual() throws SQLException{
+		
+		String query =  
+				 " select nmgrupoproduto from GrupoProduto where IdGrupoProduto = "+
+				 " (select vlconfiguracao from Nsys_configuracaocomissao where nmconfiguracao = 'grupopercentual') ";
+		String grupo = "";
+		Statement st = dataSource.getConnection().createStatement();
+		ResultSet rs = st.executeQuery(query);
+		while(rs.next()){
+			grupo = rs.getString("nmgrupoproduto");
+		}
+		st.close();
+		rs.close();
+		dataSource.getConnection().close();
+		return grupo;
+	}
 }

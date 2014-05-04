@@ -20,6 +20,6 @@ public class GrupoRepository {
 		return entityManager.createQuery("from GrupoProduto g  order by g.nmgrupoproduto").getResultList();
 	}
 	public GrupoProduto findByIndice(int indice){
-		return (GrupoProduto) entityManager.createQuery("from GrupoProduto p").getResultList().get(indice);
+		return (GrupoProduto) entityManager.createQuery("from GrupoProduto g order by g.nmgrupoproduto").getResultList().get(indice);
 	}
 }

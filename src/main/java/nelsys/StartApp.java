@@ -6,10 +6,13 @@ import java.io.IOException;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Properties;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+
+import nelsys.modelo.TabelaComissaoView;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -33,7 +36,7 @@ public class StartApp {
 		return entityManagerFactory.createEntityManager();
 	}
 	@Bean
-	public SimpleDriverDataSource dataSource() throws IOException, SQLException, ClassNotFoundException {
+	public static SimpleDriverDataSource dataSource() throws IOException, SQLException, ClassNotFoundException {
 		
 		File file1 = new File("hibernate.properties");		        
         
@@ -51,4 +54,6 @@ public class StartApp {
 				propertiesURL, propertiesUser, propertiesSenha);
 		return df;
 	}
+	
+	
 }

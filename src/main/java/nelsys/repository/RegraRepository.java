@@ -22,7 +22,7 @@ public class RegraRepository {
 	DataSource dataSource;
 
 	public void insere(List<Regra> lista) throws SQLException{
-		PreparedStatement preparedStatement;
+		PreparedStatement preparedStatement = null;
 		for(Regra r : lista){
 			String insert = "insert into Nsys_RegraComissao "+
 		"(nmcampo,idgrupoproduto,nmgrupoproduto,percentual,vladicional,vlbonificacao) "+
@@ -44,7 +44,12 @@ public class RegraRepository {
 						dataSource.getConnection().prepareStatement(insert);
 				preparedStatement.execute();
 			}
+			
+			
 		}
+		preparedStatement.close();
+		dataSource.getConnection().close();
+		
 	}
 	public Double percentualPorGrupoFuncao(String nmfuncao,String idgrupo) throws SQLException{
 		String query = "select percentual from Nsys_RegraComissao "+
@@ -57,6 +62,9 @@ public class RegraRepository {
 		while(rs.next()){
 			percentual = rs.getDouble("percentual");
 		}
+		pp.close();
+		rs.close();
+		dataSource.getConnection().close();
 		return percentual;
 	}
 	public Double percentualPorGrupoFuncaoProduto(String idfuncao,String idgrupo,String idproduto) throws SQLException{
@@ -71,6 +79,9 @@ public class RegraRepository {
 		while(rs.next()){
 			vlbonus = rs.getDouble("vlbonus");
 		}
+		pp.close();
+		dataSource.getConnection().close();
+		rs.close();
 		return vlbonus;
 	}
 	public void duplicar(String idfuncaoorigem,String idfuncaodestino,String idgrupo) throws SQLException{
@@ -84,7 +95,7 @@ public class RegraRepository {
 		pp3.setString(1, idfuncaodestino);
 		pp3.setString(2, idgrupo);
 		ResultSet rs2 = pp3.executeQuery();	
-		PreparedStatement pp2;
+		PreparedStatement pp2 = null;
 		if(rs.next()){
 			System.out.println("sim existe!");
 			while(rs2.next()){
@@ -111,5 +122,11 @@ public class RegraRepository {
 			pp2.setString(3, idgrupo);
 			pp2.execute();
 		}
+		pp.close();
+		pp2.close();
+		pp3.close();
+		rs.close();
+		rs2.close();
+		dataSource.getConnection().close();
 	}
 }

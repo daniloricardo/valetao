@@ -19,6 +19,7 @@ public class FuncaoRepository {
 	public List<Funcao> lista(){
 		return entityManager.createQuery("from Funcao f where f.cdclassificacao like 'NSYS%' order by f.nmfuncao").getResultList();
 	}
+	@SuppressWarnings("unchecked")
 	public List<Funcao> listaDestinos(String idfuncao){
 		return entityManager.createQuery("from Funcao f where f.cdclassificacao like" +
 				" 'NSYS%' and f.idfuncao not in('"+idfuncao+"')").getResultList();

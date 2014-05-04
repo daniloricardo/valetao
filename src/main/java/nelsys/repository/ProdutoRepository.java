@@ -25,7 +25,7 @@ public class ProdutoRepository {
 		String query = ""+
 		" select P.idproduto,P.NmProduto,P.IdGrupoProduto,C.CdChamada "+ 
 		" from Produto P inner join CodigoProduto C on (C.IdProduto = P.IdProduto) "+
-		" where P.IdGrupoProduto = '"+id+"' and C.StCodigoPrincipal = 'S' ";
+		" where P.IdGrupoProduto = '"+id+"' and C.StCodigoPrincipal = 'S' order by P.NmProduto ";
 		Statement pp = dataSource.getConnection().createStatement();
 		ResultSet rs = pp.executeQuery(query);
 		List<Produto> lista = new ArrayList<Produto>();
@@ -39,6 +39,9 @@ public class ProdutoRepository {
 			p.setNmproduto(rs.getString("NmProduto"));
 			lista.add(p);
 		}
+		pp.close();
+		rs.close();
+		dataSource.getConnection().close();
 		return lista;
 	}
 }

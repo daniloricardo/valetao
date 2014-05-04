@@ -12,14 +12,13 @@
 	<thead>
 		<tr>
 			<td th:text="${tabela.get(0).vendedor} +' 
-			- Nr.Fechamento: '+ ${fechamento.id} +'
+			- Nr.Fechamento: '+ ${fechamento.idfechamento} +'
 			-  Data Referencia: '+${fechamento.datareferencia} +'
 			-  Data/Hora Fechamento: '+${#dates.format(fechamento.data,'dd/MM/yyyy HH:mm')} " colspan="11"><b></b></td>
 		</tr>
 		<tr>
 			<td>Nr.Documento</td>
 			<td>Dt.Emissão</td>
-			<td>Empresa</td>
 			<td>Cliente</td>
 			<td>Produto</td>
 			<td>Grupo</td>
@@ -36,7 +35,6 @@
 		<tr th:each="tabela : ${tabela}">
 			<td th:text="${tabela.nrdocumento}"/>
 			<td th:text="${tabela.dtemissao}"/>
-			<td th:text="${tabela.cdempresa}"/>
 			<td th:text="${tabela.nmpessoa}"/>
 			<td th:text="${tabela.nmproduto}"/>
 			<td th:text="${tabela.nmgrupo}"/>
@@ -49,8 +47,10 @@
 	</tbody>
 	<tfoot>
 		<tr>
-			<td colspan="10" class="direita">Total comissão</td>
-			<td th:text="${#numbers.formatDecimal(total,1,2)}" class="direita">Total comissão</td>
+		<td colspan="6" class="direita">Total Base</td>
+			<td  th:text="${#numbers.formatDecimal(totalbase,1,2)}" class="direita"/>
+			<td colspan="2" class="direita">Total comissão</td>
+			<td  th:text="${#numbers.formatDecimal(total,1,2)}" class="direita"/>
 		</tr>
 	</tfoot>
 </table>

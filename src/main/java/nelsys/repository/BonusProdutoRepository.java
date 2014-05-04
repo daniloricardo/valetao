@@ -36,6 +36,7 @@ public class BonusProdutoRepository {
 		PreparedStatement pp = dataSource.getConnection()
 				.prepareStatement(create);
 		pp.execute();
+		pp.close();
 	}
 	
 	public void insertorupdate(List<BonusProduto> lista) throws SQLException{
@@ -59,6 +60,7 @@ public class BonusProdutoRepository {
 				ppB.setDouble(1, b.getVlbonus());
 				ppB.setInt(2, rs.getInt("id"));
 				ppB.execute();
+				
 			}
 			else{		
 			pp.setString(1, b.getIdfuncao());
@@ -67,7 +69,12 @@ public class BonusProdutoRepository {
 			pp.setDouble(4, b.getVlbonus());
 			pp.setDouble(5, new Double(0));
 			pp.execute();
+			
 			}
+			
 		}
+		
+		pp.close();
+		st.close();
 	}
 }

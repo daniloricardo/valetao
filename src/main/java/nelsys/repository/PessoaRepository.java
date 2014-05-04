@@ -66,6 +66,8 @@ public class PessoaRepository {
 			}
 			
 		}
+		statement.close();
+		dataSource.getConnection().close();
 		return idfuncao;
 	}
 }

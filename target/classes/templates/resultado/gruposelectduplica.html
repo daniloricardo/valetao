@@ -34,8 +34,16 @@
 <script type="text/javascript">
 
 $('#duplicar').click(function(){
-	$("#form").attr("action","duplicabonus");
-	$("#form").submit();
+	var grupo = $("#gruposelect").val();
+	var funcaodestino = $("#funcaodestino").val();
+	var funcaoorigem = $("#funcaobonus").val();
+	$("#loading").show();
+	$.ajax({
+		data: {nmfuncao : funcaoorigem, grupo : grupo,funcaodestino : funcaodestino },
+		url:"duplicabonus",success:function(result){
+			$("#loading").hide();
+			bootbox.alert('Duplicado com Sucesso!');
+	}});
 });
 	
 

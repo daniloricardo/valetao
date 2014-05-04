@@ -1,7 +1,17 @@
 package nelsys.modelo;
 
-public class TabelaComissao {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+//@Entity
+//@Table(name="nsys_tabelacomissao")
+public class TabelaComissao {
+	//@Id
+	//@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Integer id;
 	private String nrdocumento;
 	private String dtemissao;
 	private String cdempresa;
@@ -18,7 +28,7 @@ public class TabelaComissao {
 	private Double vladicional;
 	private Double vlbonificacao;
 	//dados tabelacomissao base de dados
-	private String id;
+	
 	private String idvendedor;
 	private String stliberado;
 	private String idfechamento;
@@ -46,10 +56,10 @@ public class TabelaComissao {
 		return historico;
 	}
 	
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getIdvendedor() {

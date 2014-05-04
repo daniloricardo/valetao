@@ -12,11 +12,11 @@ import javax.persistence.Temporal;
 
 
 @Entity
-@Table(name="nsys_tabelacomissaofechamento")
+@Table(name="Nsys_comissaofechamento")
 public class TabelaComissaoFechamento {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
+	private int idfechamento;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date data;
 	private String datareferencia;
@@ -34,11 +34,11 @@ public class TabelaComissaoFechamento {
 	public String getNmvendedor() {
 		return nmvendedor;
 	}
-	public int getId() {
-		return id;
+	public void setIdfechamento(int idfechamento) {
+		this.idfechamento = idfechamento;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public int getIdfechamento() {
+		return idfechamento;
 	}
 	public Date getData() {
 		return data;

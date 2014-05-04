@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import nelsys.modelo.TabelaComissao;
+import nelsys.modelo.TabelaComissaoView;
 import nelsys.repository.FechamentoRepository;
 import nelsys.repository.FuncaoRepository;
 import nelsys.repository.PessoaRepository;
@@ -44,18 +45,19 @@ public class FechamentoController {
 		catch(Exception e){
 			return "O Vendedor deve ter uma Função. Verifique!";
 		}
-		int tamanho = tabelaComissaoRepository.listaporvendedor(idpessoa, data,nmfuncao).size();
+		List<TabelaComissaoView> lista =tabelaComissaoRepository.listaporvendedorView2(idpessoa, data,nmfuncao);
+		int tamanho = lista.size();
 		if(tamanho>0){
 		int idfechamento  = fechamentoRepository.fecha(nmvendedor,dataoriginal);
-		List<TabelaComissao> lista = new ArrayList<TabelaComissao>();
-		for(TabelaComissao t : tabelaComissaoRepository.listaporvendedor(idpessoa, data,nmfuncao)){
+		List<TabelaComissaoView> lista2 = new ArrayList<TabelaComissaoView>();
+		for(TabelaComissaoView t : lista){
 			t.setIdfechamento(idfechamento+"");
 			t.setIdvendedor(idpessoa);
-			t.setVendedor(nmvendedor);
+			t.setNmvendedor(nmvendedor);
 			t.setDtemissao(converte(t.getDtemissao()));
-			lista.add(t);
+			lista2.add(t);
 		}
-			fechamentoRepository.executa(lista);
+			fechamentoRepository.executa(lista2);
 			return "Fechamento Realizado com Sucesso!";
 			
 		}

@@ -24,17 +24,19 @@
 			<td th:text="${tabela.cdempresa}"/>
 			<td th:text="${tabela.nmpessoa}"/>
 			<td th:text="${tabela.nmproduto}"/>
-			<td th:text="${tabela.nmgrupo}"/>
+			<td th:text="${tabela.nmgrupoproduto}"/>
 			<td th:text="${tabela.qtitem}" class="direita" />
 			<td th:text="${tabela.vlitem}" class="direita" />
 			<td th:text="${tabela.percentual}" class="direita" />
 			<td th:text="${#numbers.formatDecimal(tabela.vladicional,1,2)}" class="direita" />
-			<td th:text="${#numbers.formatDecimal(tabela.vlcomissao+tabela.vladicional,1,2)}" class="direita" />
+			<td th:text="${#numbers.formatDecimal(tabela.vlcomissao,1,2)}" class="direita" />
 		</tr>
 	</tbody>
 	<tfoot>
 		<tr>
-			<td colspan="10" class="direita">Total comissão</td>
+		<td colspan="7" class="direita">Total Base</td>
+			<td  th:text="${#numbers.formatDecimal(totalbase,1,2)}" class="direita"/>
+			<td colspan="2" class="direita">Total comissão</td>
 			<td  th:text="${#numbers.formatDecimal(total,1,2)}" class="direita"/>
 		</tr>
 	</tfoot>

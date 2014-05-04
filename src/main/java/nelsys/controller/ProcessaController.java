@@ -1,10 +1,12 @@
 package nelsys.controller;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import nelsys.modelo.TabelaComissao;
+import nelsys.modelo.TabelaComissaoView;
 import nelsys.repository.FuncaoRepository;
 import nelsys.repository.PessoaRepository;
 import nelsys.repository.TabelaComissaoRepository;
@@ -26,18 +28,24 @@ public class ProcessaController {
 	@RequestMapping("processa")
 	public String processa(ModelMap map,HttpServletRequest request) throws SQLException{
 		String idpessoa = request.getParameter("idpessoa");
-		System.out.println(idpessoa);
+		
 		String data = request.getParameter("data");
-		System.out.println(data);
+		
 		
 		String nmfuncao = funcaoRepository
 				.findById(pessoaRepository.idfuncaoporidpessoa(idpessoa)).getNmfuncao();
-		map.put("tabela",tabelaComissaoRepository.listaporvendedor(idpessoa, converte(data),nmfuncao));
+		List<TabelaComissaoView> lista = tabelaComissaoRepository.listaporvendedorView2(idpessoa, converte(data),nmfuncao);
+		map.put("tabela",lista);
 		Double totalComissao = new Double(0);
-		for(TabelaComissao t : tabelaComissaoRepository.listaporvendedor(idpessoa, converte(data),nmfuncao) ){
-			totalComissao += (t.getVlcomissao()+t.getVladicional());
+		Double totalBase = new Double(0);
+		if(lista.size()>0){
+		for(TabelaComissaoView t : lista ){
+			totalComissao += (t.getVlcomissao());
+			totalBase += (t.getVlitem());
+		}
 		}
 		map.put("total", totalComissao);
+		map.put("totalbase", totalBase);
 		return "resultado/tabelacomissao";
 	}
 	public static String converte(String data){

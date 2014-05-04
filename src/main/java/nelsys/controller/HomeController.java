@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import nelsys.modelo.BonusProduto;
 import nelsys.modelo.Regra;
 import nelsys.modelo.TabelaComissao;
+import nelsys.modelo.TabelaComissaoView;
 import nelsys.repository.BonusProdutoRepository;
 import nelsys.repository.EmpresaRepository;
 import nelsys.repository.FuncaoRepository;
@@ -118,7 +119,8 @@ public class HomeController {
 				regra.setIdgrupogrupo(grupoRepository.findByIndice(indice).getIdgrupoproduto());
 				regra.setNmgrupoproduto(grupoRepository.findByIndice(indice).getNmgrupoproduto());
 				regra.setPercentual(new Double(quebra[0]));
-				System.out.println(s +" Grupo: "+grupoRepository.findByIndice(indice).getNmgrupoproduto());
+				System.out.println(s +" Grupo: "+grupoRepository.findByIndice(indice).getNmgrupoproduto()
+						+ " - "+grupoRepository.findByIndice(indice).getIdgrupoproduto());
 				listaregra.add(regra);
 			}
 			System.out.println("listaregra.size(): "+listaregra.size());
@@ -193,4 +195,5 @@ public class HomeController {
 		bonusProdutoRepository.insertorupdate(lista);
 		return "bonus";
 	}
+	
 }

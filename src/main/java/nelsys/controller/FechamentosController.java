@@ -28,12 +28,15 @@ public class FechamentosController {
 		System.out.println(id);
 		TabelaComissaoFechamento fechcomissao = fechamentoRepository.getFechamento(id);
 		double totalcomissao = new Double(0);
+		double totalbase = new Double(0);
 		map.put("tabela", fechamentoRepository.listaFechados(id));
 		map.put("fechamento", fechcomissao);
 		for(TabelaComissao t : fechamentoRepository.listaFechados(id)){
-			totalcomissao += ( t.getVlcomissao() + t.getVladicional());
+			totalcomissao += ( t.getVlcomissao());
+			totalbase += t.getVlitem();
 		}
 		map.put("total", totalcomissao);
+		map.put("totalbase", totalbase);
 		return "imprime";
 	}
 	@RequestMapping("reabre/{id}")

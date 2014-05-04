@@ -22,8 +22,10 @@ public class ConfiguracaoController {
 	GrupoRepository grupoRepository;
 
 	@RequestMapping("configuracao")
-	public String configuracao(ModelMap map){
+	public String configuracao(ModelMap map) throws SQLException{
 		map.put("grupos", grupoRepository.lista());
+		map.put("datacorte", configuracaoRepository.datacorte());
+		map.put("grupoatual", configuracaoRepository.grupoatual());
 		return "configuracao";
 	}
 	@RequestMapping("gravaconfiguracao")
@@ -45,7 +47,7 @@ public class ConfiguracaoController {
 		
 		if(data != null && !data.equals("")){
 			c.setNmconfiguracao("datacorte");
-			c.setVlconfiguracao(converte(data));
+			c.setVlconfiguracao(data);
 		configuracaoRepository.insertorupdate(c);
 		}
 		return "home";
