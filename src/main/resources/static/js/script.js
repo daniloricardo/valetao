@@ -27,6 +27,17 @@ $(document).ready(function(){
 				  }});
 		 
 	 });
+	 $("#vendedor").change(function(){
+		 var idpessoa = new String(this.value);
+		 $("#loading").show();
+		  $.ajax({
+			  data: {idpessoa : idpessoa},
+			  url:"fechamentosfiltro",success:function(result){
+					$("#loading").hide();
+					 $("#resultadofechamentos").html(result);
+				  }});
+		
+	 });
 	 $("#funcaobonus").change(function(){
 		 
 		 if($("#duplica").is(':checked')){

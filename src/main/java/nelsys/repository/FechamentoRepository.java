@@ -85,7 +85,16 @@ public class FechamentoRepository {
 		pp.close();
 		dataSource.getConnection().close();
 	}
-	
+	public List<TabelaComissaoFechamento> listaporvendedor(String idpessoa){
+		
+		mataEntity();
+		@SuppressWarnings("unchecked")
+		List<TabelaComissaoFechamento> lista = entityManager.createQuery("from TabelaComissaoFechamento " +
+				" t where t.idvendedor = :idpessoa  order by t.idfechamento desc")
+					.setParameter("idpessoa", idpessoa)
+					.getResultList();
+			return lista; 
+	}
 	@SuppressWarnings("unchecked")
 	public List<TabelaComissaoFechamento> listapordata(String data,String tipo){
 		

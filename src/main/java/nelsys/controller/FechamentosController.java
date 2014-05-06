@@ -27,7 +27,8 @@ public class FechamentosController {
 	@Autowired
 	UsuarioRepository usuarioRepository;
 	@RequestMapping("fechamentos")
-	public String fechamentos() throws SQLException{
+	public String fechamentos(ModelMap map) throws SQLException{
+		map.put("vendedores", pessoaRepository.findAll());
 		return "fechamentos";
 	}
 	@RequestMapping("fechamentosfiltro")
@@ -35,13 +36,25 @@ public class FechamentosController {
 		String data = request.getParameter("data");
 		String tipo = request.getParameter("tipo");
 		System.out.println("ddata: "+data+ " tipo: "+tipo);
-		
-		List<TabelaComissaoFechamento> lista = fechamentoRepository.listapordata(data,tipo);
+		String idpessoa = request.getParameter("idpessoa");
+		List<TabelaComissaoFechamento> lista;
+		if(idpessoa != null){
+			lista = fechamentoRepository.listaporvendedor(idpessoa);
+			for(TabelaComissaoFechamento t : lista ){
+				System.out.println(t.getIdvendedor());
+				t.setIdvendedor(pessoaRepository.findById(t.getIdvendedor()).getNmpessoa());
+				String usuario = usuarioRepository.pegaId(t.getIdusuariofechamento(), "");
+				t.setNmusuario(usuario);
+			}
+		}
+		else{
+		lista = fechamentoRepository.listapordata(data,tipo);
 		for(TabelaComissaoFechamento t : lista ){
 			System.out.println(t.getIdvendedor());
 			t.setIdvendedor(pessoaRepository.findById(t.getIdvendedor()).getNmpessoa());
 			String usuario = usuarioRepository.pegaId(t.getIdusuariofechamento(), "");
 			t.setNmusuario(usuario);
+		}
 		}
 		map.put("fechamentos",lista );
 		return "resultado/fechamentos";

@@ -31,6 +31,14 @@ public class PessoaRepository {
 				.setParameter("nmpessoa", nmpessoa)
 				.getResultList();
 	}
+	@SuppressWarnings("unchecked")
+	public List<Pessoa> findAll(){
+		return entityManager.createQuery("from Pessoa p where " +
+				"  p.idpessoa in (select idpessoafuncionario from Funcionario ) or" +
+				" p.idpessoa in (select idpessoarepresentante from Representante ) ")
+				.getResultList();
+	}
+	
 	public Pessoa findById(String idpessoa){
 		return  entityManager.find(Pessoa.class, idpessoa);
 	}

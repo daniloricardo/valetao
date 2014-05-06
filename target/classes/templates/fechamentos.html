@@ -21,6 +21,12 @@
 		&nbsp;&nbsp;&nbsp;
 		<input type="text" class="form-control input-date" id="data" name="data" placeholder="Data"/>
 		&nbsp;&nbsp;
+		<select name="vendedor" id="vendedor">
+			<option value="">Selecione o Vendedor</option>
+				<option th:each="vendedor : ${vendedores}" th:text="${vendedor.nmpessoa}"
+				th:value="${vendedor.idpessoa}"
+				></option>
+			</select>
 		<input type="button" class="btn btn-primary" value="Filtrar" id="filtrafechamento" />
 	</div>
 	<div id="resultadofechamentos"></div>
