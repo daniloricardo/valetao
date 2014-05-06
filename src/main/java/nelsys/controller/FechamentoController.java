@@ -12,6 +12,7 @@ import nelsys.repository.FechamentoRepository;
 import nelsys.repository.FuncaoRepository;
 import nelsys.repository.PessoaRepository;
 import nelsys.repository.TabelaComissaoRepository;
+import nelsys.repository.UsuarioRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +29,8 @@ public class FechamentoController {
 	PessoaRepository pessoaRepository;
 	@Autowired
 	FechamentoRepository fechamentoRepository;
+	@Autowired
+	UsuarioRepository usuarioRepository;
 	
 	@RequestMapping("fechamento")
 	@ResponseBody
@@ -35,6 +38,7 @@ public class FechamentoController {
 		String idpessoa =request.getParameter("idpessoa");
 		String dataoriginal = request.getParameter("data");
 		String data = converte(request.getParameter("data"));
+		String idusuario = usuarioRepository.pegaId(request.getRemoteUser(),"id");
 		String nmfuncao = "";
 		String nmvendedor = pessoaRepository
 				.findById(idpessoa).getNmpessoa();
@@ -48,7 +52,7 @@ public class FechamentoController {
 		List<TabelaComissaoView> lista =tabelaComissaoRepository.listaporvendedorView2(idpessoa, data,nmfuncao);
 		int tamanho = lista.size();
 		if(tamanho>0){
-		int idfechamento  = fechamentoRepository.fecha(nmvendedor,dataoriginal);
+		int idfechamento  = fechamentoRepository.fecha(idpessoa,dataoriginal,idusuario);
 		List<TabelaComissaoView> lista2 = new ArrayList<TabelaComissaoView>();
 		for(TabelaComissaoView t : lista){
 			t.setIdfechamento(idfechamento+"");

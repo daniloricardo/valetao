@@ -11,10 +11,12 @@
 <table class="table table-bordered table-striped" id="tabela" style="width: 100%">
 	<thead>
 		<tr>
-			<td th:text="${tabela.get(0).vendedor} +' 
-			- Nr.Fechamento: '+ ${fechamento.idfechamento} +'
-			-  Data Referencia: '+${fechamento.datareferencia} +'
-			-  Data/Hora Fechamento: '+${#dates.format(fechamento.data,'dd/MM/yyyy HH:mm')} " colspan="11"><b></b></td>
+			<td th:text="${fechamento.idvendedor} +' 
+			||  Nr.Fechamento: '+ ${fechamento.idfechamento} +'
+			||  Data Referencia: '+${fechamento.datareferencia} +'
+			||  Data/Hora Fechamento: '+${#dates.format(fechamento.data,'dd/MM/yyyy HH:mm')} +' || Usuário Fechamento: '+
+			 ${fechamento.nmusuario} + ' || Total Base: '+ ${#numbers.formatDecimal(totalbase,1,2)} +' 
+			 || Total comissão: '+ ${#numbers.formatDecimal(total,1,2)}" colspan="11"><b></b></td>
 		</tr>
 		<tr>
 			<td>Nr.Documento</td>

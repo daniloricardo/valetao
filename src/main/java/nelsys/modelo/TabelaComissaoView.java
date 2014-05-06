@@ -26,6 +26,7 @@ public class TabelaComissaoView {
 	//@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String iddocumentoitem;
+	private String idproduto;
 	private String nrdocumento;
 	private String iddocumento;
 	private String dtoriginal;
@@ -48,6 +49,12 @@ public class TabelaComissaoView {
 	private String stliberado;
 	private String idfechamento;
 	private String idlancamentoDB;
+	public void setIdproduto(String idproduto) {
+		this.idproduto = idproduto;
+	}
+	public String getIdproduto() {
+		return idproduto;
+	}
 	public void setIddocumento(String iddocumento) {
 		this.iddocumento = iddocumento;
 	}

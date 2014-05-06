@@ -32,12 +32,16 @@ public class UsuarioRepository {
 		if(!rs.next()){
 		Md5PasswordEncoder encoder = new Md5PasswordEncoder();
 		String senhaMD5 = encoder.encodePassword(senha, null);
+		String idUser = pegaId(login,"id");
 		String insert2 =
-				"insert into users (username,password,authority) values ('"+login+"','"+senhaMD5+"','ROLE_ADMIN')";
+				"insert into users (username,password,authority,idexterno) values ('"+login+"','"+senhaMD5+"','ROLE_ADMIN','"+idUser+"')";
 		PreparedStatement preparedStatement2 = dataSource.getConnection()
 				.prepareStatement(insert2);
 		preparedStatement2.execute();
-		
+		preparedStatement2.close();
+		statement.close();
+		rs.close();
+		dataSource.getConnection().close();
 		return true;
 		}
 		else{
@@ -53,5 +57,30 @@ public class UsuarioRepository {
 		PreparedStatement preparedStatement = dataSource.getConnection()
 				.prepareStatement(insert);
 		preparedStatement.execute();
+	}
+	public String pegaId(String login,String dado) throws SQLException{
+		Statement statement = dataSource.getConnection().createStatement();
+		if(dado.equals("id")){
+		statement.executeQuery("select * from Usuario where NmLogin = '"+login+"'");
+		}
+		else{
+			statement.executeQuery("select * from Usuario where idusuario = '"+login+"'");
+		}
+		ResultSet rs = statement.getResultSet();
+		String id="";
+		String nmusuario = "";
+		while(rs.next()){
+			id = rs.getString("idusuario");
+			nmusuario = rs.getString("nmlogin");
+		}
+		statement.close();
+		rs.close();
+		dataSource.getConnection().close();
+		if(dado.equals("id")){
+		return id;
+		}
+		else{
+			return nmusuario;
+		}
 	}
 }

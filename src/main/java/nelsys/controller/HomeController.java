@@ -160,6 +160,14 @@ public class HomeController {
 		PrintWriter writer = response.getWriter();
 		writer.write("ok");
 	}
+	@RequestMapping("deletalancamento")
+	public void deletalancamento(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException{
+		
+		System.out.println("id: "+request.getParameter("id"));
+		int id = Integer.parseInt(request.getParameter("id"));
+		tabelaComissaoRepository.removeLancamento(id);
+		
+	}
 	@RequestMapping("bonus")
 	public String bonus(ModelMap map){
 		map.put("funcoes", funcaoRepository.lista());

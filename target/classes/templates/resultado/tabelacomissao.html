@@ -13,7 +13,7 @@
 			<td>Aliquota</td>
 			<td>Bonus</td>
 			<td>Comissão</td>
-			
+			<td>#</td>
 			
 		</tr>
 	</thead>
@@ -30,6 +30,17 @@
 			<td th:text="${tabela.percentual}" class="direita" />
 			<td th:text="${#numbers.formatDecimal(tabela.vladicional,1,2)}" class="direita" />
 			<td th:text="${#numbers.formatDecimal(tabela.vlcomissao,1,2)}" class="direita" />
+			<td><a name="remove"
+			th:id="${tabela.idlancamentoDB}"
+			th:class="
+				${tabela.iddocumento eq ''} ?
+			'' : 'azul'"
+			onclick="teste(this)"
+			>
+				<img src="/img/cross.png"
+				/>
+				
+			</a> </td>
 		</tr>
 	</tbody>
 	<tfoot>
@@ -41,4 +52,17 @@
 		</tr>
 	</tfoot>
 </table>
+<script type="text/javascript">
+	function teste(x){
+
+			bootbox.confirm("Deseja Realmente Excluir o Lançamento?", function(result){
+				if(result){
+					$.ajax({
+						  url:"deletalancamento?id="+x.id,success:function(result){
+						  }});
+					}
+			});
+			
+		}
+</script>
 	

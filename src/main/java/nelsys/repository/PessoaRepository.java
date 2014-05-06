@@ -32,9 +32,7 @@ public class PessoaRepository {
 				.getResultList();
 	}
 	public Pessoa findById(String idpessoa){
-		return (Pessoa) entityManager.createQuery("from Pessoa p where p.idpessoa = :idpessoa ")
-				.setParameter("idpessoa", idpessoa)
-				.getSingleResult();
+		return  entityManager.find(Pessoa.class, idpessoa);
 	}
 	public String idfuncaoporidpessoa(String idpessoa) throws SQLException{
 		Statement statement = dataSource.getConnection().createStatement();

@@ -6,11 +6,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-//@Entity
-//@Table(name="nsys_tabelacomissao")
+@Entity
+@Table(name="Nsys_Comissaofechamentoitem")
 public class TabelaComissao {
-	//@Id
-	//@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String nrdocumento;
 	private String dtemissao;
@@ -31,7 +31,7 @@ public class TabelaComissao {
 	
 	private String idvendedor;
 	private String stliberado;
-	private String idfechamento;
+	private Integer idfechamento;
 	private String historico;
 	private String tipo;
 	private String idlancamentodb;
@@ -74,10 +74,10 @@ public class TabelaComissao {
 	public void setStliberado(String stliberado) {
 		this.stliberado = stliberado;
 	}
-	public String getIdfechamento() {
+	public Integer getIdfechamento() {
 		return idfechamento;
 	}
-	public void setIdfechamento(String idfechamento) {
+	public void setIdfechamento(Integer idfechamento) {
 		this.idfechamento = idfechamento;
 	}
 	public String getNrdocumento() {

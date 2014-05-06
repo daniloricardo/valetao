@@ -13,25 +13,31 @@
 
 	<div layout:fragment="content">
 	<h4>Fechamentos</h4>
-		<table class="table">
-			<thead>
-				<tr>
-					<td>Codigo</td>
-					<td>Vendedor</td>
-					<td>Data Fechamento</td>
-					<td>Data Referência</td>
-				</tr>
-			</thead>
-			<tr th:each="fechamento : ${fechamentos}">
-				<td th:text="${fechamento.idfechamento}" />
-				<td th:text="${fechamento.nmvendedor}" />
-				<td th:text="${#dates.format(fechamento.data,'dd/MM/yyyy HH:mm')}" />
-				<td th:text="${fechamento.datareferencia}"/>
-				<td><a href="#" onclick="confirmaReabertura(this.id)" th:id="${fechamento.idfechamento}"><img src="/img/arrow_undo.png"/></a></td>
-				<td><a th:href="'/imprime/'+${fechamento.idfechamento}" target="blank"><img src="/img/imprimir.gif"/></a></td>
-			</tr>
-		</table>
 	
+	<div class="form-inline">
+		<input type="radio" value="dtreferencia" id="dtreferencia" name="tipo"/> Data Referência
+		&nbsp;&nbsp;&nbsp;
+		<input type="radio" value="dtfechamento" id="dtfechamento" name="tipo"/> Data Fechamento
+		&nbsp;&nbsp;&nbsp;
+		<input type="text" class="form-control input-date" id="data" name="data" placeholder="Data"/>
+		&nbsp;&nbsp;
+		<input type="button" class="btn btn-primary" value="Filtrar" id="filtrafechamento" />
+	</div>
+	<div id="resultadofechamentos"></div>
+	<script src="/js/bootstrap-datepicker.js"></script>
+		
+		<script type="text/javascript">
+		
+		  $('.input-date').datepicker({
+	    	language: "pt-BR",
+	    	format: "dd/mm/yyyy",
+	    	autoclose: true,
+	    	todayHighlight: true
+	    });
+		
+		
+		
+	    </script>	
 		
 	</div>
 	

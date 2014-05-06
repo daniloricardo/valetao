@@ -55,7 +55,38 @@ $(document).ready(function(){
 	 $("#processa").click(function(){
 		  alert('teste');
 	 });	  
-	
+	$("#filtrafechamento").click(function(){
+		
+		var fech = document.getElementById("dtfechamento");
+		var ref = document.getElementById("dtreferencia");
+		var data = document.getElementById("data");
+		if(!(fech.checked || ref.checked)){
+			bootbox.alert("Selecione o Tipo de Data!");
+			return false;
+		}
+		else{
+			if(validaPeriodo()){
+				var tipo = new String();
+					if(fech.checked){
+					tipo = fech.value;
+					}
+					else{
+					tipo = ref.value;
+					}
+				
+			
+		$("#loading").show();
+		$.ajax({
+			data: {tipo : tipo, data : data.value },
+			url:"fechamentosfiltro",success:function(result){
+				$("#loading").hide();
+				 $("#resultadofechamentos").html(result);
+				
+		}});
+			
+		}
+		}
+	});
 	$("#representante").keyup(function(){
 		$("#loading").show();
 		 $.ajax({url:"consultarepresentante?nome="+this.value,success:function(result){
@@ -172,7 +203,7 @@ function validaPeriodo(){
 	var data = document.getElementById('data').value;
 	if(data == '')
 	{
-		bootbox.alert('A Data Final não foi informada. Verifique');
+		bootbox.alert('A Data não foi informada. Verifique');
 		return false;
 	}
 	else {
@@ -272,6 +303,7 @@ function aplica(x){
 	}
 	
 }
+
 function aplicapercentual(x){
 	var produtos = document.getElementsByName('comissao');
 	var tamanho = produtos.length;

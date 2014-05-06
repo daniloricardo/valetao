@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.TemporalType;
 import javax.persistence.Temporal;
+import javax.persistence.Transient;
 
 
 @Entity
@@ -20,19 +21,34 @@ public class TabelaComissaoFechamento {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date data;
 	private String datareferencia;
-	private String nmvendedor;
+	private String idvendedor;
+	private String idusuariofechamento;
+	@Transient
+	private String nmusuario;
 	
+	public void setNmusuario(String nmusuario) {
+		this.nmusuario = nmusuario;
+	}
+	public String getNmusuario() {
+		return nmusuario;
+	}
+	public void setIdusuariofechamento(String idusuariofechamento) {
+		this.idusuariofechamento = idusuariofechamento;
+	}
+	public String getIdusuariofechamento() {
+		return idusuariofechamento;
+	}
 	public void setDatareferencia(String datareferencia) {
 		this.datareferencia = datareferencia;
 	}
 	public String getDatareferencia() {
 		return datareferencia;
 	}
-	public void setNmvendedor(String nmvendedor) {
-		this.nmvendedor = nmvendedor;
+	public void setIdvendedor(String idvendedor) {
+		this.idvendedor = idvendedor;
 	}
-	public String getNmvendedor() {
-		return nmvendedor;
+	public String getIdvendedor() {
+		return idvendedor;
 	}
 	public void setIdfechamento(int idfechamento) {
 		this.idfechamento = idfechamento;

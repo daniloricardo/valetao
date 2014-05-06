@@ -1,0 +1,22 @@
+ <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ 
+		<table class="table">
+			<thead>
+				<tr>
+					<td>Codigo</td>
+					<td>Vendedor</td>
+					<td>Usuário</td>
+					<td>Data Fechamento</td>
+					<td>Data Referência</td>
+				</tr>
+			</thead>
+			<tr th:each="fechamento : ${fechamentos}">
+				<td th:text="${fechamento.idfechamento}" />
+				<td th:text="${fechamento.idvendedor}" />
+				<td th:text="${fechamento.nmusuario}" />
+				<td th:text="${#dates.format(fechamento.data,'dd/MM/yyyy HH:mm')}" />
+				<td th:text="${fechamento.datareferencia}"/>
+				<td><a href="#" onclick="confirmaReabertura(this.id)" th:id="${fechamento.idfechamento}"><img src="/img/arrow_undo.png"/></a></td>
+				<td><a th:href="'/imprime/'+${fechamento.idfechamento}" target="blank"><img src="/img/imprimir.gif"/></a></td>
+			</tr>
+		</table>

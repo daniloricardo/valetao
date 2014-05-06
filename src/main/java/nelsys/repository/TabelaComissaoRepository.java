@@ -302,6 +302,18 @@ public class TabelaComissaoRepository {
 		pp.close();
 		dataSource.getConnection().close();
 	}
+	public void removeLancamento(int id) throws SQLException{
+		
+		String insert = "delete from Nsys_LancamentoDebitoCredito "+
+		" where id = ?";
+		PreparedStatement pp = dataSource.getConnection()
+				.prepareStatement(insert);
+		pp.setInt(1, id);
+		pp.execute();
+		
+		pp.close();
+		dataSource.getConnection().close();
+	}
 	@SuppressWarnings("unchecked")
 	public List<TabelaComissaoView> listaporvendedorView(String idpessoa,String data,String nmfuncao) throws SQLException{
 		executaCreate();
@@ -324,18 +336,29 @@ public class TabelaComissaoRepository {
 	}
 	@SuppressWarnings("unchecked")
 	public List<TabelaComissaoView> listaporvendedorView2(String idpessoa,String data,String nmfuncao) throws SQLException{
-		executaCreate();
-		executaCreateFechamentoItem();
-		executaCreateFechamento();
+		
 		String datacorte = configuracaoRepository.configuracaoPorNmconfiguracao("datacorte").getVlconfiguracao();
+//		return entityManager.createQuery("from TabelaComissaoView t where "+
+//				" t.idvendedor = ? and t.dtoriginal > ? and t.dtoriginal <= ? "+
+//				" and ( t.nmcampo = ? or t.nmcampo is null) "+
+//				" and (t.iddocumentoitem+t.idvendedor) not in ( "+
+//				" select "+
+//				"(IdDocumentoitem+IdVendedor) "+
+//				" from TabelaComissao ) "+
+//				" order by dtoriginal ")
+//				.setParameter(1, idpessoa)
+//		.setParameter(2, converte(datacorte))
+//		.setParameter(3, data)
+//		.setParameter(4, nmfuncao)
+//				.getResultList();
 		String query = ""+
 				" select * from vw_Nsys_TabelaComissao where " +
 				" idvendedor = ? and dtoriginal > ? and dtoriginal <= ? " +
 				" and ( nmcampo = ? or nmcampo is null) "+
-				" and (IdDocumentoitem+IdVendedor) not in ( "+
+				" and ((IdDocumentoitem+IdVendedor) not in ( "+
 				" select "+
 				"(IdDocumentoitem+IdVendedor) "+
-				" from Nsys_ComissaoFechamentoItem ) "+
+				" from Nsys_ComissaoFechamentoItem ) or (id=IdlancamentoDb and idvendedor = idvendedor)) "+
 				" order by dtoriginal ";
 		PreparedStatement pp = dataSource.getConnection()
 				.prepareStatement(query);
@@ -346,6 +369,7 @@ public class TabelaComissaoRepository {
 		
 		
 		ResultSet rs = pp.executeQuery();
+		
 		List<TabelaComissaoView> lista = new ArrayList<TabelaComissaoView>();
 		TabelaComissaoView tabelaComissao;
 		while(rs.next()){
@@ -353,6 +377,7 @@ public class TabelaComissaoRepository {
 			tabelaComissao.setIddocumento(rs.getString("iddocumento"));
 			tabelaComissao.setNrdocumento(rs.getString("nrdocumento"));
 			tabelaComissao.setIddocumentoitem(rs.getString("iddocumentoitem"));
+			tabelaComissao.setIdproduto(rs.getString("idproduto"));
 			tabelaComissao.setDtemissao(rs.getString("dtemissao"));
 			tabelaComissao.setCdempresa(rs.getString("cdempresa"));
 			tabelaComissao.setNmpessoa(rs.getString("nmpessoa"));
@@ -379,11 +404,14 @@ public class TabelaComissaoRepository {
 			}
 			tabelaComissao.setIdlancamentoDB(rs.getString("idlancamentoDB"));
 			lista.add(tabelaComissao);
+			dataSource.getConnection().close();
+			
 		}
 		rs.close();
 		pp.close();
 		dataSource.getConnection().close();
 		return lista;
+		
 	}
 	public static String converte(String data){
 		return data.substring(6,10)+"-"+data.substring(3,5)+"-"+data.substring(0,2);
