@@ -13,22 +13,28 @@
 
 	<div layout:fragment="content">
 	<h4>Fechamentos</h4>
-	
 	<div class="form-inline">
+	<div class="form-group">
+			
+			<input type="text" class="form-control" name="representante"
+				id="representantefechamento" placeholder="Digite aqui o Nome..." 
+				size="70"
+				/>
+		
+		<div id="autocompleterepresentante"></div>
+	</div>
+		<div class="form-group">
 		<input type="radio" value="dtreferencia" id="dtreferencia" name="tipo"/> Data Referência
 		&nbsp;&nbsp;&nbsp;
 		<input type="radio" value="dtfechamento" id="dtfechamento" name="tipo"/> Data Fechamento
 		&nbsp;&nbsp;&nbsp;
 		<input type="text" class="form-control input-date" id="data" name="data" placeholder="Data"/>
 		&nbsp;&nbsp;
-		<select name="vendedor" id="vendedor">
-			<option value="">Selecione o Vendedor</option>
-				<option th:each="vendedor : ${vendedores}" th:text="${vendedor.nmpessoa}"
-				th:value="${vendedor.idpessoa}"
-				></option>
-			</select>
+		
 		<input type="button" class="btn btn-primary" value="Filtrar" id="filtrafechamento" />
 	</div>
+	</div>
+	
 	<div id="resultadofechamentos"></div>
 	<script src="/js/bootstrap-datepicker.js"></script>
 		

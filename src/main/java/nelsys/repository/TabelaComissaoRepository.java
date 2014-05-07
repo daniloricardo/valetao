@@ -358,7 +358,41 @@ public class TabelaComissaoRepository {
 				" and ((IdDocumentoitem+IdVendedor) not in ( "+
 				" select "+
 				"(IdDocumentoitem+IdVendedor) "+
-				" from Nsys_ComissaoFechamentoItem ) or (id=IdlancamentoDb and idvendedor = idvendedor)) "+
+				" from Nsys_ComissaoFechamentoItem )) "+
+				"  and iddocumento != '' "+
+				" union "+
+				" select "+ 
+				" Convert(varchar(10),id) as ID, "+
+                            " '' as iddocumentoitem "+
+                                               " ,nrdocumento "+
+                           " ,'' "+
+                                           " ,'' as IdProduto "+
+                            " ,Convert(Varchar,dtmovimento,103) as dtmovimento, "+ 
+                                               " dtmovimento as t,   "+
+                            " empresa,  "+
+                            " case when cliente is null then ( "+ 
+                            		" case when tipo = 'D' then 'Debito' else 'Crédito'end) end  as cliente, "+ 
+                            " case when produto is null then historico end as produto,  "+
+                            " isnull(qtitem,0),  "+
+                            " isnull(vlitem,0),  "+
+                            " isnull(vlcomissao,0), "+ 
+                            " idvendedor,  "+
+                            " idgrupo,  "+
+                            " grupo,       "+
+                            " isnull(percentual,0), "+ 
+                            "                             null as NmCampo, "+
+                            " isnull(vladicional,0), "+ 
+                           " isnull(vlbonificacao,0), "+ 
+                            " stliberado,  "+
+                            " idfechamento,  "+
+                            " id  "+
+                            " from Nsys_LancamentoDebitoCredito "+ 
+                            " where   "+
+							" idvendedor = ? and dtmovimento > ? and dtmovimento <= ? "+ 
+						 " and (id not in (  "+
+				 						" select  "+
+				 " IdDocumentoitem from "+ 
+				" Nsys_ComissaoFechamentoItem where IdDocumento = '' )) "+
 				" order by dtoriginal ";
 		PreparedStatement pp = dataSource.getConnection()
 				.prepareStatement(query);
@@ -366,7 +400,9 @@ public class TabelaComissaoRepository {
 		pp.setString(2, converte(datacorte));
 		pp.setString(3, data);
 		pp.setString(4, nmfuncao);
-		
+		pp.setString(5, idpessoa);
+		pp.setString(6, converte(datacorte));
+		pp.setString(7, data);
 		
 		ResultSet rs = pp.executeQuery();
 		

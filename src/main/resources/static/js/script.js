@@ -106,6 +106,14 @@ $(document).ready(function(){
 			 
 			  }});
 	});
+	$("#representantefechamento").keyup(function(){
+		$("#loading").show();
+		 $.ajax({url:"consultarepresentantefechamento?nome="+this.value,success:function(result){
+			 $("#loading").hide();
+			 $("#autocompleterepresentante").html(result);
+			 
+			  }});
+	});
 	
 	$('#duplicar').click(function(){
 		alert('teste');
@@ -283,7 +291,13 @@ function selecionarepfunc(x){
 		  }});
 	
 }
-
+function selecionarepfuncfech(x){
+	$.ajax({url:"fechamentosfiltro?idpessoa="+x,success:function(result){
+		$("#autocompleterepresentante").html(""); 
+		$("#resultadofechamentos").html(result);
+		  }});
+	
+}
 
 function processa(){
 	

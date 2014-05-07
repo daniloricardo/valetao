@@ -48,6 +48,16 @@ public class AutoCompleteController {
 			writer.write("<span class='dados' onclick=selecionarepfunc('"+p.getIdpessoa()+"')>"+p.getNmpessoa()+"</span><br/>");	
 		}
 	}
+	@RequestMapping("consultarepresentantefechamento")
+	public void autocompleterepresentantefechamento(String nome,HttpServletResponse response) throws IOException{
+		PrintWriter writer = response.getWriter();
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html");
+		
+		for(Pessoa p : pessoaRepository.findByLikeName(nome)){
+			writer.write("<span class='dados' onclick=selecionarepfuncfech('"+p.getIdpessoa()+"')>"+p.getNmpessoa()+"</span><br/>");	
+		}
+	}
 	@RequestMapping("resultadofiltrorepresentante")
 	public String teste(String nome,ModelMap map) throws SQLException{
 		System.out.println(nome);

@@ -35,7 +35,7 @@ public class PessoaRepository {
 	public List<Pessoa> findAll(){
 		return entityManager.createQuery("from Pessoa p where " +
 				"  p.idpessoa in (select idpessoafuncionario from Funcionario ) or" +
-				" p.idpessoa in (select idpessoarepresentante from Representante ) ")
+				" p.idpessoa in (select idpessoarepresentante from Representante ) order by p.nmpessoa ")
 				.getResultList();
 	}
 	

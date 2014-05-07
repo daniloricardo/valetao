@@ -61,7 +61,12 @@ public class FechamentoRepository {
 			pp = dataSource.getConnection().prepareStatement(query);
 			pp.setString(1, t.getIdvendedor());
 			pp.setString(2, t.getIddocumento());
-			pp.setString(3, t.getIddocumentoitem());
+			if(t.getIddocumentoitem().equals("") || t.getIddocumentoitem() == null ){
+				pp.setString(3, t.getIdlancamentoDB());
+			}
+			else{
+				pp.setString(3, t.getIddocumentoitem());
+			}
 			pp.setString(4, t.getIdproduto());
 			pp.setString(5, t.getDtemissao());
 			pp.setDouble(6, t.getQtitem());
